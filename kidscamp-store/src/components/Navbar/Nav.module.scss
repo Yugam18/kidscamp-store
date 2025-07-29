@@ -1,0 +1,110 @@
+.nav {
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    position: relative;
+  }
+  
+  // Hidden checkbox for toggle
+  .toggleCheckbox {
+    display: none;
+  }
+  
+  // Hamburger icon
+  .hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    flex-wrap: wrap;
+  
+    @media (max-width: 768px) {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+  
+  .menuItem {
+    position: relative;
+  
+    .link {
+      text-decoration: none;
+      font-weight: 500;
+      color: #333;
+      padding: 0.5rem;
+      display: block;
+  
+      &:hover {
+        color: #ff7f50;
+      }
+    }
+  
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      list-style: none;
+      z-index: 1000;
+  
+      li {
+        margin-bottom: 0.5rem;
+      }
+  
+      .dropdownItem {
+        color: #444;
+        text-decoration: none;
+        font-size: 0.9rem;
+  
+        &:hover {
+          color: #e67e22;
+        }
+      }
+    }
+  
+    &:hover .dropdown {
+      display: block;
+    }
+  }
+  
+  /* Responsive Behaviors */
+  @media (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
+  
+    .toggleCheckbox:checked + .hamburger + .menu {
+      display: flex;
+    }
+  
+    .menuItem {
+      .dropdown {
+        position: relative;
+        top: auto;
+        left: auto;
+        padding: 0.5rem 1rem;
+        box-shadow: none;
+        background: none;
+  
+        .dropdownItem {
+          padding-left: 1rem;
+        }
+      }
+  
+      &:hover .dropdown {
+        display: block;
+      }
+    }
+  }
+  
