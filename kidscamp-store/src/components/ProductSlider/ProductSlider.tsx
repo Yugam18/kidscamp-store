@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import styles from './ProductSlider.module.scss';
 
 export interface ProductItem {
@@ -172,7 +173,11 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                     onMouseLeave={handleMouseUp}
                 >
                     {products.map((product) => (
-                        <div key={product.id} className={styles.productCard}>
+                        <Link
+                            key={product.id}
+                            href={`/product/${product.id}`}
+                            className={styles.productCard}
+                        >
                             <div className={styles.imageContainer}>
                                 {product.isNew && (
                                     <div className={styles.newTag}>New in</div>
@@ -188,7 +193,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                                 <p className={styles.name}>{product.name}</p>
                                 <p className={styles.price}>£{product.price.toFixed(2)}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
