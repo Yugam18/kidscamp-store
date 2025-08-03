@@ -72,7 +72,7 @@ export default function Home() {
       <NavBar />
       <CarouselWrapper />
       <ProductSlider
-        title="New + Trending Products"
+        title="Trending Products"
         products={sampleProducts}
       />
       <Footer />

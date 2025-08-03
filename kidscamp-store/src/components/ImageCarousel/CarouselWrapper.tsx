@@ -45,20 +45,6 @@ const CarouselWrapper: React.FC = () => {
                 showIndicators={true}
                 showArrows={true}
             />
-            {/* 
-            <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-                <h2>Component Features:</h2>
-                <ul style={{ textAlign: 'left', maxWidth: '600px', margin: '0 auto' }}>
-                    <li>✅ Responsive design</li>
-                    <li>✅ Auto-play functionality</li>
-                    <li>✅ Navigation arrows</li>
-                    <li>✅ Indicator dots</li>
-                    <li>✅ Call-to-action buttons</li>
-                    <li>✅ Smooth transitions</li>
-                    <li>✅ Customizable props</li>
-                    <li>✅ TypeScript support</li>
-                </ul>
-            </div> */}
         </div>
     );
 };
