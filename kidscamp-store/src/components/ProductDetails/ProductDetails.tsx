@@ -2,39 +2,77 @@
 import React, { useState } from "react";
 import styles from "./ProductDetails.module.scss";
 import ProductDescription from "../ProductDescription/ProductDescription";
+import { Product } from '@/types/product';
+import { getSpecificPrice, formatCategoryName } from '@/utils/productUtils';
 
 // Interface for product details props
 interface ProductDetailsProps {
-  title: string;
-  price: number; 
-  sizes: string[]; 
-  shippingInfo: string; 
-  description: string;
+  product: Product;
 }
 
-const ProductDetails: React.FC<ProductDetailsProps> = ({ title, price, sizes, shippingInfo,description }) => {
+const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
+  const [selectedColor, setSelectedColor] = useState<string>(product.color_variants[0] || "");
   const [selectedSize, setSelectedSize] = useState<string>("");
+
+  const categoryName = formatCategoryName(product.category_id);
+  const currentPricing = selectedColor && selectedSize ?
+    getSpecificPrice(product, selectedColor, selectedSize) :
+    { price: 0, hasDiscount: false };
+
+  const handleColorChange = (color: string) => {
+    setSelectedColor(color);
+    setSelectedSize(""); // Reset size when color changes
+  };
 
   const handleSizeChange = (size: string) => {
     setSelectedSize(size);
   };
 
+  const isAddToCartEnabled = selectedColor && selectedSize;
+
   return (
     <div className={styles.productDetails}>
-      <h1>{title}</h1>
-      <div className={styles.price}>
-        ${price}
+      <div className={styles.category}>{categoryName}</div>
+      <h1 className={styles.productName}>{product.name}</h1>
+      <p className={styles.shortDescription}>{product.short_description}</p>
+
+      <div className={styles.priceSection}>
+        {selectedColor && selectedSize ? (
+          <div className={styles.priceContainer}>
+            <span className={styles.price}>${currentPricing.price}</span>
+            {currentPricing.hasDiscount && currentPricing.originalPrice && (
+              <span className={styles.originalPrice}>${currentPricing.originalPrice}</span>
+            )}
+          </div>
+        ) : (
+          <div className={styles.priceHint}>Select color and size to see price</div>
+        )}
       </div>
-      <p className={styles.shipping}>{shippingInfo}</p>
+
+      <div className={styles.colorSelector}>
+        <label>Color</label>
+        <div className={styles.colorOptions}>
+          {product.color_variants.map((color) => (
+            <button
+              key={color}
+              className={`${styles.colorButton} ${selectedColor === color ? styles.selected : ""}`}
+              onClick={() => handleColorChange(color)}
+            >
+              {color}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className={styles.sizeSelector}>
-        <label>Select a size</label>
+        <label>Size</label>
         <div className={styles.sizeOptions}>
-          {sizes.map((size) => (
+          {product.size_variants.map((size) => (
             <button
               key={size}
               className={`${styles.sizeButton} ${selectedSize === size ? styles.selected : ""}`}
               onClick={() => handleSizeChange(size)}
+              disabled={!!selectedColor && !product.prices[selectedColor]?.[size]}
             >
               {size}
             </button>
@@ -42,8 +80,29 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ title, price, sizes, sh
         </div>
       </div>
 
-      <button className={styles.addToCartButton}>Add to Cart</button>
-      <ProductDescription description={description} /> 
+      <div className={styles.productInfo}>
+        <div className={styles.infoItem}>
+          <span className={styles.label}>Made in:</span>
+          <span className={styles.value}>{product.made_in}</span>
+        </div>
+        <div className={styles.infoItem}>
+          <span className={styles.label}>Materials:</span>
+          <span className={styles.value}>{product.materials_used}</span>
+        </div>
+        <div className={styles.infoItem}>
+          <span className={styles.label}>Tag:</span>
+          <span className={`${styles.tag} ${styles[product.tag]}`}>{product.tag}</span>
+        </div>
+      </div>
+
+      <button
+        className={`${styles.addToCartButton} ${!isAddToCartEnabled ? styles.disabled : ''}`}
+        disabled={!isAddToCartEnabled}
+      >
+        {isAddToCartEnabled ? 'Add to Cart' : 'Select Color & Size'}
+      </button>
+
+      <ProductDescription description={product.long_description} />
     </div>
   );
 };

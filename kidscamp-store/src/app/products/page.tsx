@@ -1,16 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import styles from './page.module.scss';
 import Header from '@/components/Header/Header';
 import NavBar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
-import ProductDetails from '@/components/ProductDetails/ProductDetails';
-import ProductCorousel from '@/components/ProductCorousel/ProductCorousel';
+import ProductCard from '@/components/ProductCard/ProductCard';
+import styles from './page.module.scss';
 import { Product, ProductsApiResponse } from '@/types/product';
-import { getProductImages } from '@/utils/productUtils';
 
-// Sample API data - the same data as in PLP for consistency
+// Sample API data - replace this with actual API call
 const sampleApiData: ProductsApiResponse = {
     "products": [
         {
@@ -220,91 +217,99 @@ const sampleApiData: ProductsApiResponse = {
             "tag": "layer",
             "made_in": "Italy",
             "materials_used": "Wool blend"
+        },
+        {
+            "id": "active-play-set",
+            "category_id": "adventure-club",
+            "name": "Active Play Set",
+            "short_description": "T-shirt and shorts set for active kids.",
+            "long_description": "Durable set designed for running and playing outdoors.",
+            "color_variants": [
+                "Green",
+                "Orange"
+            ],
+            "size_variants": [
+                "3-4 yrs",
+                "5-6 yrs"
+            ],
+            "prices": {
+                "Green": {
+                    "3-4 yrs": 45,
+                    "5-6 yrs": 50
+                },
+                "Orange": {
+                    "3-4 yrs": 45,
+                    "5-6 yrs": 50
+                }
+            },
+            "midjourney_prompt": "energetic child playing outside wearing active set.",
+            "tag": "sporty",
+            "made_in": "Vietnam",
+            "materials_used": "Polyester, Cotton blend"
         }
     ]
 };
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
-    const [product, setProduct] = useState<Product | null>(null);
+export default function ProductListingPage() {
+    const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchProduct = async () => {
+        // Simulate API call - replace this with actual API call
+        const fetchProducts = async () => {
             try {
                 // In a real app, you would fetch from your API:
-                // const response = await fetch(`/api/products/${params.id}`);
-                // const data: Product = await response.json();
+                // const response = await fetch('/api/products');
+                // const data: ProductsApiResponse = await response.json();
 
-                // For now, find product from sample data
-                const foundProduct = sampleApiData.products.find(p => p.id === params.id);
-
-                if (!foundProduct) {
-                    setError('Product not found');
-                    return;
-                }
-
-                setProduct(foundProduct);
+                // For now, using sample data
+                const data = sampleApiData;
+                setProducts(data.products);
             } catch (error) {
-                console.error('Error fetching product:', error);
-                setError('Failed to load product');
+                console.error('Error fetching products:', error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchProduct();
-    }, [params.id]);
+        fetchProducts();
+    }, []);
 
     if (loading) {
         return (
             <>
                 <Header />
                 <NavBar />
-                <div className={styles.productPage}>
-                    <div className={styles.loading}>Loading product...</div>
+                <div className={styles.container}>
+                    <div className={styles.loading}>Loading products...</div>
                 </div>
                 <Footer />
             </>
         );
     }
-
-    if (error || !product) {
-        return (
-            <>
-                <Header />
-                <NavBar />
-                <div className={styles.productPage}>
-                    <div className={styles.error}>
-                        <h2>{error || 'Product not found'}</h2>
-                        <Link href="/products" className={styles.backLink}>
-                            ← Back to Products
-                        </Link>
-                    </div>
-                </div>
-                <Footer />
-            </>
-        );
-    }
-
-    const productImages = getProductImages(product, 4);
 
     return (
         <>
             <Header />
             <NavBar />
-            <div className={styles.productPage}>
-                <div className={styles.breadcrumb}>
-                    <Link href="/products">Products</Link>
-                    <span className={styles.separator}>›</span>
-                    <span>{product.name}</span>
+
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <h1 className={styles.title}>Kids Clothing</h1>
+                    <p className={styles.subtitle}>Discover our complete collection of kids' fashion</p>
                 </div>
 
-                <div className={styles.productContent}>
-                    <ProductCorousel images={productImages} alt={product.name} />
-                    <ProductDetails product={product} />
+                <div className={styles.productGrid}>
+                    {products.map((product) => (
+                        <ProductCard
+                            key={product.id}
+                            product={product}
+                            rating={4} // You can add rating to your API data or calculate it
+                        />
+                    ))}
                 </div>
             </div>
+
             <Footer />
         </>
     );

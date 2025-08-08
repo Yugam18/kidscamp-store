@@ -20,36 +20,36 @@ interface RelatedProductsProps {
 const RelatedProducts: React.FC<RelatedProductsProps> = ({ className = '' }) => {
     const relatedProducts: RelatedProduct[] = [
         {
-            id: '2',
-            name: 'Polo with Contrast Trims',
+            id: 'denim-overalls',
+            name: 'Denim Overalls',
             imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=400&fit=crop',
             rating: 4.0,
-            currentPrice: 212,
-            originalPrice: 242,
-            discount: '-20%'
+            currentPrice: 50,
+            originalPrice: 55,
+            discount: '-9%'
         },
         {
-            id: '3',
-            name: 'Gradient Graphic T-shirt',
+            id: 'linen-summer-shirt',
+            name: 'Linen Summer Shirt',
             imageUrl: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&h=400&fit=crop',
-            rating: 3.5,
-            currentPrice: 145
+            rating: 4.5,
+            currentPrice: 40
         },
         {
-            id: '4',
-            name: 'Polo with Tipping Details',
+            id: 'knit-cardigan',
+            name: 'Knit Cardigan',
             imageUrl: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=300&h=400&fit=crop',
             rating: 4.5,
-            currentPrice: 180
+            currentPrice: 35
         },
         {
-            id: '5',
-            name: 'Striped Jacket',
+            id: 'puffer-winter-jacket',
+            name: 'Puffer Winter Jacket',
             imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=400&fit=crop',
             rating: 5.0,
-            currentPrice: 120,
-            originalPrice: 160,
-            discount: '-30%'
+            currentPrice: 80,
+            originalPrice: 95,
+            discount: '-16%'
         }
     ];
 

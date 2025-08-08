@@ -5,63 +5,55 @@ import NavBar from "@/components/Navbar/Navbar";
 import CarouselWrapper from "@/components/ImageCarousel/CarouselWrapper";
 import ProductSlider from "@/components/ProductSlider/ProductSlider";
 
-// Sample product data matching the image
+// Sample product data that matches our PDP product IDs
 const sampleProducts = [
   {
-    id: "1",
+    id: "floral-party-dress",
     imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop",
-    brand: "Moulin Roty",
-    name: "Moulin Roty: Activity gull Puce & Pilou",
-    price: 16.00,
+    brand: "Little Royals",
+    name: "Floral Party Dress",
+    price: 75.00,
     isNew: true
   },
   {
-    id: "2",
+    id: "denim-overalls",
     imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop",
-    brand: "Moulin Roty",
-    name: "Moulin Roty: Height Chart Puce & Pilou",
-    price: 18.00,
+    brand: "Everyday Luxe",
+    name: "Denim Overalls",
+    price: 50.00,
     isNew: true
   },
   {
-    id: "3",
+    id: "plush-bathrobe",
     imageUrl: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&h=300&fit=crop",
-    brand: "Moulin Roty",
-    name: "Moulin Roty: Yellow dog backpack Puce & Pilou",
-    price: 41.00,
-    isNew: true
+    brand: "Dreamy Nights",
+    name: "Plush Bathrobe",
+    price: 40.00,
+    isNew: false
   },
   {
-    id: "4",
+    id: "linen-summer-shirt",
     imageUrl: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=300&h=300&fit=crop",
-    brand: "Moulin Roty",
-    name: "Moulin Roty: Gull rattle doll - Puce & Pilou",
-    price: 18.00,
-    isNew: true
+    brand: "Everyday Luxe",
+    name: "Linen Summer Shirt",
+    price: 40.00,
+    isNew: false
   },
   {
-    id: "5",
+    id: "puffer-winter-jacket",
     imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop",
-    brand: "Moulin Roty",
-    name: "Moulin Roty: Soft Ball - Puce & Pilou",
-    price: 11.00,
-    isNew: true
+    brand: "Adventure Club",
+    name: "Puffer Winter Jacket",
+    price: 80.00,
+    isNew: false
   },
   {
-    id: "6",
+    id: "cotton-nightdress",
     imageUrl: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=300&h=300&fit=crop",
-    brand: "Moulin Roty",
-    name: "Moulin Roty: Gull rattle doll - Puce & Pilou",
-    price: 18.00,
-    isNew: true
-  },
-  {
-    id: "7",
-    imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop",
-    brand: "Moulin Roty",
-    name: "Moulin Roty: Soft Ball - Puce & Pilou",
-    price: 11.00,
-    isNew: true
+    brand: "Dreamy Nights",
+    name: "Cotton Nightdress",
+    price: 30.00,
+    isNew: false
   }
 ];
 

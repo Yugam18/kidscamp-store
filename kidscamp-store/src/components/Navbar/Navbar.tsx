@@ -4,6 +4,7 @@ import Link from 'next/link';
 const NAV_ITEMS = [
   { title: 'SALE', href: '/sale' },
   { title: 'NEW IN', href: '/new-in' },
+  { title: 'PRODUCTS', href: '/products' },
   { title: 'BABY', href: '/baby' },
   { title: 'BOY', href: '/boy' },
   { title: 'GIRL', href: '/girl' },
