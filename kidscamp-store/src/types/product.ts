@@ -14,6 +14,7 @@ export interface Product {
     tag: string;
     made_in: string;
     materials_used: string;
+    imgUrl: string[];
 }
 
 export interface ProductsApiResponse {

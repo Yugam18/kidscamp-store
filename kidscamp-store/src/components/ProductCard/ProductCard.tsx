@@ -20,14 +20,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
     const categoryName = formatCategoryName(product.category_id);
     const isNew = isNewProduct(product);
 
-    const [imgSrc, setImgSrc] = React.useState(imageUrl);
-    const [imgError, setImgError] = React.useState(false);
+  
 
-    const handleImageError = () => {
-        setImgError(true);
-        // Fallback to a placeholder image
-        setImgSrc('https://images.unsplash.com/photo-1503944168849-6c1ead3ad683?w=300&h=300&fit=crop');
-    };
 
     const renderStars = (rating: number) => {
         const stars = [];
@@ -48,12 +42,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <Link href={`/product/${product.id}`} className={styles.productCard}>
             <div className={styles.imageContainer}>
                 <Image
-                    src={imgSrc}
-                    alt={product.name}
+                    src={product.imgUrl ? product.imgUrl[0] : "https://images.unsplash.com/photo-1503944168849-6c1ead3ad683?w=300&h=300&fit=crop"}
+                    alt={""}
                     width={300}
                     height={300}
                     className={styles.productImage}
-                    onError={handleImageError}
+                    
                 />
                 {isNew && <div className={styles.newBadge}>NEW</div>}
                 {priceInfo.hasDiscount && <div className={styles.discountBadge}>SALE</div>}
