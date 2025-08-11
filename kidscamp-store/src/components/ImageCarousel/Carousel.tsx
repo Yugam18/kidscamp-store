@@ -7,10 +7,6 @@ export interface CarouselItem {
     id: string;
     imageUrl: string;
     title?: string;
-    subtitle?: string;
-    description?: string;
-    ctaText?: string;
-    ctaLink?: string;
 }
 
 interface CarouselProps {
@@ -78,20 +74,8 @@ const Carousel: React.FC<CarouselProps> = ({
                                     {item.title && (
                                         <div className={styles['carousel-title']}>{item.title}</div>
                                     )}
-                                    {item.subtitle && (
-                                        <div className={styles['carousel-subtitle']}>{item.subtitle}</div>
-                                    )}
-                                    {item.description && (
-                                        <div className={styles['carousel-description']}>{item.description}</div>
-                                    )}
+                                   
                                 </div>
-                                {item.ctaLink && (
-                                    <a
-                                        href={item.ctaLink}
-                                        className={styles['carousel-image-link']}
-                                        aria-label={`Navigate to ${item.title || 'slide'}`}
-                                    />
-                                )}
                             </div>
                         </div>
                     ))}

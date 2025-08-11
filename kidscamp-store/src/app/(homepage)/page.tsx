@@ -4,6 +4,11 @@ import Header from "@/components/Header/Header";
 import NavBar from "@/components/Navbar/Navbar";
 import CarouselWrapper from "@/components/ImageCarousel/CarouselWrapper";
 import ProductSlider from "@/components/ProductSlider/ProductSlider";
+import { client } from "@/services/contentful";
+import { mapHeroAssetsToCarouselItems, mapFeaturedProductsToProductItems } from "./homepage.utils";
+
+
+
 
 // Sample product data that matches our PDP product IDs
 const sampleProducts = [
@@ -29,7 +34,7 @@ const sampleProducts = [
     brand: "Dreamy Nights",
     name: "Plush Bathrobe",
     price: 40.00,
-    isNew: false
+
   },
   {
     id: "linen-summer-shirt",
@@ -37,7 +42,7 @@ const sampleProducts = [
     brand: "Everyday Luxe",
     name: "Linen Summer Shirt",
     price: 40.00,
-    isNew: false
+
   },
   {
     id: "puffer-winter-jacket",
@@ -45,7 +50,7 @@ const sampleProducts = [
     brand: "Adventure Club",
     name: "Puffer Winter Jacket",
     price: 80.00,
-    isNew: false
+
   },
   {
     id: "cotton-nightdress",
@@ -53,19 +58,31 @@ const sampleProducts = [
     brand: "Dreamy Nights",
     name: "Cotton Nightdress",
     price: 30.00,
-    isNew: false
+
   }
 ];
 
-export default function Home() {
+export default async function Home() {
+  const response = await client.getEntries({
+    content_type: 'homepage',
+    limit: 10
+  });
+
+
+
+  const homepage = response.items[0]?.fields;
+  const [heroImages, featuredProducts] = [homepage.heroImage, homepage.featuredProducts];
+
+  const heroItems = mapHeroAssetsToCarouselItems(heroImages);
+  const productItems = mapFeaturedProductsToProductItems(featuredProducts);
   return (
     <div>
       <Header />
       <NavBar />
-      <CarouselWrapper />
+      <CarouselWrapper items={heroItems} />
       <ProductSlider
         title="Trending Products"
-        products={sampleProducts}
+        products={productItems}
       />
       <Footer />
     </div>

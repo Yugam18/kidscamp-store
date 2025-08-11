@@ -10,7 +10,6 @@ export interface ProductItem {
     brand: string;
     name: string;
     price: number;
-    isNew?: boolean;
 }
 
 interface ProductSliderProps {
@@ -179,9 +178,7 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
                             className={styles.productCard}
                         >
                             <div className={styles.imageContainer}>
-                                {product.isNew && (
-                                    <div className={styles.newTag}>New in</div>
-                                )}
+                              
                                 <img
                                     src={product.imageUrl}
                                     alt={product.name}
