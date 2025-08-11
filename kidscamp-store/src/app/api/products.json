@@ -387,6 +387,85 @@
             "made_in": "France",
             "materials_used": "100% Silk",
             "imgUrl": []
-        }
+        },
+        {
+            "id": "velvet-charm-dress",
+            "category_id": "little-royals",
+            "name": "Velvet Charm Dress",
+            "short_description": "Velvet dress with lace and pearl details.",
+            "long_description": "Luxurious velvet dress, perfect for special occasions.",
+            "color_variants": ["Royal Navy", "Blush Pink"],
+            "size_variants": ["2-3 yrs", "4-5 yrs"],
+            "prices": {"Royal Navy": {"2-3 yrs": 80, "4-5 yrs": 85}, "Blush Pink": {"2-3 yrs": 80, "4-5 yrs": 85}},
+            "discounted_prices": {"Royal Navy": {"2-3 yrs": 70, "4-5 yrs": 75}},
+            "midjourney_prompt": "luxury velvet dress, lace trims, pearl details, child wearing elegantly.",
+            "tag": "bestseller",
+            "made_in": "Italy",
+            "materials_used": "Velvet (80% Cotton, 20% Polyester), Lace (100% Cotton), Pearls",
+            "imgUrl": ["https://images.ctfassets.net/qm3xz8whzgyj/3RIFweH3jlHYumyg04xpEr/2f74d9373fabc93b13939fbdcfac6dae/velvet-charm-dress.png"]
+          },
+          {
+            "id": "classic-tuxedo-set",
+            "category_id": "little-royals",
+            "name": "Classic Tuxedo Set",
+            "short_description": "Elegant tuxedo set for formal occasions.",
+            "long_description": "Sophisticated tuxedo set featuring jacket, trousers, and bowtie.",
+            "color_variants": ["Black"],
+            "size_variants": ["3-4 yrs", "5-6 yrs"],
+            "prices": {"Black": {"3-4 yrs": 120, "5-6 yrs": 130}},
+            "midjourney_prompt": "child wearing elegant black tuxedo, classic style, formal setting.",
+            "tag": "classic",
+            "made_in": "France",
+            "materials_used": "Wool blend, Satin lining",
+            "imgUrl":["https://images.ctfassets.net/qm3xz8whzgyj/7xYBHkIT6Z9YjyvRZDgQe0/f9b5b618a934cc8b281c58239ebc7f3b/classic-tuxedo-set-1.png","https:////images.ctfassets.net/qm3xz8whzgyj/2C12yBSBAhcc65o09OO4nT/9407514b78fcb301bdcf483abf1c4a5f/classic-tuxedo-set-2.png","https://images.ctfassets.net/qm3xz8whzgyj/16eKH1g6KO4c5GIhd092oW/ed78eefc9fe561a445be00bd015d2777/classic-tuxedo-set-3.png"]
+          },
+          {
+            "id": "sunshine-romper",
+            "category_id": "everyday-luxe",
+            "name": "Sunshine Romper",
+            "short_description": "Comfortable romper perfect for playdates.",
+            "long_description": "Lightweight cotton romper designed for comfort and style.",
+            "color_variants": ["Yellow", "Mint"],
+            "size_variants": ["1-2 yrs", "2-3 yrs"],
+            "prices": {"Yellow": {"1-2 yrs": 40, "2-3 yrs": 45}, "Mint": {"1-2 yrs": 40, "2-3 yrs": 45}},
+            "discounted_prices": {"Mint": {"1-2 yrs": 35, "2-3 yrs": 40}},
+            "midjourney_prompt": "happy child in lightweight cotton romper, playful environment.",
+            "tag": "favorite",
+            "made_in": "Spain",
+            "materials_used": "100% Cotton",
+            "imgUrl":["https://images.ctfassets.net/qm3xz8whzgyj/kbDx5pfKjKX4GtIgs51If/29cced0ee6eb201fde71e90fb8011e3b/sunshine-romper.png"]
+          },
+          {
+            "id": "moonlight-pajamas",
+            "category_id": "dreamy-nights",
+            "name": "Moonlight Pajamas",
+            "short_description": "Soft pajamas for restful sleep.",
+            "long_description": "Comfortable pajamas made with breathable cotton.",
+            "color_variants": ["White", "Lavender"],
+            "size_variants": ["3-4 yrs", "5-6 yrs"],
+            "prices": {"White": {"3-4 yrs": 35, "5-6 yrs": 40}, "Lavender": {"3-4 yrs": 35, "5-6 yrs": 40}},
+            "midjourney_prompt": "child sleeping peacefully in soft pajamas, cozy bedroom scene.",
+            "tag": "cozy",
+            "made_in": "Portugal",
+            "materials_used": "Organic Cotton",
+            "imgUrl":["https://images.ctfassets.net/qm3xz8whzgyj/4drLquFv38TnX6yI3SQyIb/9b84c8b03917906f4b765dd702ab1b7b/moonlight-pajamas-1.png","https://images.ctfassets.net/qm3xz8whzgyj/1m6F93VMoOmyD11oJRxYIf/50ce7eb9aeb4b827392efff5b61e5e59/moonlight-pajamas-2.png"]
+          },
+          {
+            "id": "explorer-jacket",
+            "category_id": "adventure-club",
+            "name": "Explorer Jacket",
+            "short_description": "Durable jacket for outdoor activities.",
+            "long_description": "Robust jacket suitable for adventures and play.",
+            "color_variants": ["Forest Green"],
+            "size_variants": ["4-5 yrs", "6-7 yrs"],
+            "prices": {"Forest Green": {"4-5 yrs": 60, "6-7 yrs": 65}},
+            "discounted_prices": {"Forest Green": {"4-5 yrs": 50}},
+            "midjourney_prompt": "active child outdoors in durable green jacket, adventure setting.",
+            "tag": "durable",
+            "made_in": "Canada",
+            "materials_used": "Water-resistant Nylon, Polyester lining",
+            "imgUrl":["https://images.ctfassets.net/qm3xz8whzgyj/3Cbaf9j31pVTGHkgPMkbkR/7a0226a7b521cb2127fbf1c3a0129ca0/explorer-jacket-1.png"]
+          }
+          
     ]
 }
