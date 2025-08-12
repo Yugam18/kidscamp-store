@@ -89,11 +89,7 @@ export function getProductImageUrl(product: Product, index: number = 0): string 
  * Get multiple product images for carousel
  */
 export function getProductImages(product: Product, count: number = 4): string[] {
-    const images = [];
-    for (let i = 0; i < count; i++) {
-        images.push(getProductImageUrl(product, i));
-    }
-    return images;
+    return product.imgUrl || [];
 }
 
 /**

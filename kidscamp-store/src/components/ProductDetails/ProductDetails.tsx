@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import styles from "./ProductDetails.module.scss";
 import ProductDescription from "../ProductDescription/ProductDescription";
 import { Product } from '@/types/product';
+import QuantitySelector from "@/components/QuantitySelector/QuantitySelector";
+import { useCartStore } from "@/services/cartStore";
 import { getSpecificPrice, formatCategoryName } from '@/utils/productUtils';
 
 // Interface for product details props
@@ -13,6 +15,8 @@ interface ProductDetailsProps {
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [selectedColor, setSelectedColor] = useState<string>(product.color_variants[0] || "");
   const [selectedSize, setSelectedSize] = useState<string>("");
+  const [quantity, setQuantity] = useState<number>(1);
+  const addToCart = useCartStore((s) => s.addItem);
 
   const categoryName = formatCategoryName(product.category_id);
   const currentPricing = selectedColor && selectedSize ?
@@ -29,6 +33,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   };
 
   const isAddToCartEnabled = selectedColor && selectedSize;
+
+  const onAddToCart = () => {
+    if (!isAddToCartEnabled) return;
+    const { price } = getSpecificPrice(product, selectedColor, selectedSize);
+    addToCart({
+      productId: product.id,
+      color: selectedColor,
+      size: selectedSize,
+      name: product.name,
+      imageUrl: (product.imgUrl && product.imgUrl[0]) || undefined,
+      unitPrice: price,
+      quantity,
+    });
+  };
 
   return (
     <div className={styles.productDetails}>
@@ -95,12 +113,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         </div>
       </div>
 
-      <button
-        className={`${styles.addToCartButton} ${!isAddToCartEnabled ? styles.disabled : ''}`}
-        disabled={!isAddToCartEnabled}
-      >
-        {isAddToCartEnabled ? 'Add to Cart' : 'Select Color & Size'}
-      </button>
+      <div className={styles.addToCartRow}>
+        <QuantitySelector value={quantity} onChange={setQuantity} />
+        <button
+          className={`${styles.addToCartButton} ${!isAddToCartEnabled ? styles.disabled : ''}`}
+          disabled={!isAddToCartEnabled}
+          onClick={onAddToCart}
+        >
+          {isAddToCartEnabled ? 'Add to Cart' : 'Select Color & Size'}
+        </button>
+      </div>
 
       <ProductDescription description={product.long_description} />
     </div>

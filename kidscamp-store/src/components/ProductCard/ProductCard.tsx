@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from './ProductCard.module.scss';
 import { Product } from '@/types/product';
 import { getProductPriceInfo, getProductImageUrl, formatCategoryName, isNewProduct } from '@/utils/productUtils';
+import demoImage from '@/assets/images/demoImage.jpg';
 
 interface ProductCardProps {
     product: Product;
@@ -42,12 +43,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <Link href={`/product/${product.id}`} className={styles.productCard}>
             <div className={styles.imageContainer}>
                 <Image
-                    src={product.imgUrl ? product.imgUrl[0] : "https://images.unsplash.com/photo-1503944168849-6c1ead3ad683?w=300&h=300&fit=crop"}
+                    src={product.imgUrl.length > 0 ? product.imgUrl[0] : demoImage}
                     alt={""}
                     width={300}
                     height={300}
                     className={styles.productImage}
-                    
                 />
                 {isNew && <div className={styles.newBadge}>NEW</div>}
                 {priceInfo.hasDiscount && <div className={styles.discountBadge}>SALE</div>}

@@ -10,7 +10,7 @@ import { Product, ProductsApiResponse } from '@/types/product';
 
 
 export default function ProductListingPage() {
-    
+
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -33,7 +33,7 @@ export default function ProductListingPage() {
     }
 
     useEffect(() => {
-     
+
 
         fetchProducts();
     }, []);
@@ -59,7 +59,7 @@ export default function ProductListingPage() {
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h1 className={styles.title}>Kids Clothing</h1>
-                    <p className={styles.subtitle}>Discover our complete collection of kids' fashion</p>
+                    <p className={styles.subtitle}>Discover our complete collection of kids&apos; fashion</p>
                 </div>
 
                 <div className={styles.productGrid}>

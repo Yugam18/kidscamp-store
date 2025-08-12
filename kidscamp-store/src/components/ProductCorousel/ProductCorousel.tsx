@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './ProductCorousel.module.scss';
+import demoImage from '@/assets/images/demoImage.jpg';
 
 interface ProductImageCarouselProps {
   images: string[];
@@ -33,7 +34,7 @@ const ProductCorousel: React.FC<ProductImageCarouselProps> = ({ images, alt }) =
           ←
         </button>
         <div className={styles.mainImage}>
-          <Image src={images[selectedImage]} alt={alt} layout="responsive" width={500} height={500} />
+          <Image src={images[selectedImage] || demoImage} alt={alt} layout="responsive" width={500} height={500} />
         </div>
         <button className={`${styles.arrow} ${styles.next}`} onClick={() => handleArrowClick('next')}>
           →

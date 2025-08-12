@@ -46,3 +46,32 @@ export interface ProductDetailData extends Product {
     currentPrice?: number;
     hasDiscount?: boolean;
 }
+
+export interface CartItemKey {
+    productId: string;
+    color: string;
+    size: string;
+}
+
+export interface CartItem extends CartItemKey {
+    name: string;
+    imageUrl?: string;
+    unitPrice: number;
+    quantity: number;
+}
+
+export interface CartState {
+    items: CartItem[];
+    isOpen: boolean;
+    itemCount: number; // sum of quantities
+    subtotal: number;  // sum of unitPrice * quantity
+    open: () => void;
+    close: () => void;
+    toggle: () => void;
+    addItem: (item: CartItem) => void;
+    removeItem: (key: CartItemKey) => void;
+    setQuantity: (key: CartItemKey, quantity: number) => void;
+    increment: (key: CartItemKey) => void;
+    decrement: (key: CartItemKey) => void;
+    clear: () => void;
+}
