@@ -1,50 +1,59 @@
 .searchContainer {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  transition: box-shadow 0.3s ease;
+
+  &:focus-within {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 767px) {
+    padding: 0.5rem 0.75rem;
     border-radius: 2rem;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-    width: 100%;
-  
-    @media (min-width: 768px) {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-  
-    @media (max-width: 767px) {
-      padding: 0.5rem 0.75rem;
-    }
   }
-  
-  .icon {
-    width: 20px;
-    height: 20px;
-    stroke: #243a8a;
+}
+
+.icon {
+  color: #1a365d;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+
+  @media (max-width: 767px) {
     margin-right: 0.5rem;
-    flex-shrink: 0;
-  
-    @media (max-width: 480px) {
-      width: 18px;
-      height: 18px;
-      margin-right: 0.25rem;
-    }
   }
-  
-  .input {
-    flex: 1;
-    border: none;
-    outline: none;
+
+  @media (max-width: 480px) {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.25rem;
+  }
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  color: #1a365d;
+  background: transparent;
+
+  &::placeholder {
+    color: #6b7280;
+  }
+
+  @media (max-width: 767px) {
     font-size: 1rem;
-    color: #243a8a;
-    background-color: transparent;
-  
-    &::placeholder {
-      color: #6d87c2;
-    }
-  
-    @media (max-width: 480px) {
-      font-size: 0.9rem;
-    }
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
+}
   

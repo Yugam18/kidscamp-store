@@ -1,10 +1,37 @@
-
-
+'use client';
+import React from 'react';
 import styles from './Search.module.scss';
 
-const Search = () => {
+interface SearchProps {
+  className?: string;
+  placeholder?: string;
+  value: string;
+  onChange: (value: string) => void;
+  onSearch: (query: string) => void;
+}
+
+const Search: React.FC<SearchProps> = ({ 
+  className = '', 
+  placeholder = "Search for anything",
+  value,
+  onChange,
+  onSearch
+}) => {
+  const handleSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === 'Enter') {
+      const query = value.trim();
+      if (query.length > 0) {
+        onSearch(query);
+      }
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
+
   return (
-    <div className={styles.searchContainer}>
+    <div className={`${styles.searchContainer} ${className}`}>
       <svg
         className={styles.icon}
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +49,10 @@ const Search = () => {
       <input
         className={styles.input}
         type="text"
-        placeholder="Search for anything"
+        placeholder={placeholder}
+        value={value}
+        onChange={handleInputChange}
+        onKeyDown={handleSearchKeyDown}
         aria-label="Search"
       />
     </div>

@@ -23,6 +23,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    cssChunking: false,
+  },
 };
 
 export default nextConfig;

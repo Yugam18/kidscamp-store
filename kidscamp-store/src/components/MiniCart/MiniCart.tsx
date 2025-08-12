@@ -17,7 +17,7 @@ const MiniCart: React.FC = () => {
         <div className={`${styles.overlay} ${isOpen ? styles.show : ""}`} onClick={close}>
             <aside className={styles.drawer} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.header}>
-                    <div className={styles.title}>Minicart preview</div>
+                    <div className={styles.title}>My Bag</div>
                     <button className={styles.closeBtn} onClick={close} aria-label="Close">×</button>
                 </div>
                 <div className={styles.freeBanner}>Free delivery from $150</div>

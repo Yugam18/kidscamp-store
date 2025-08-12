@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './Carousel.module.scss';
+import SvgIcon from '../SvgIcon/SvgIcon';
 
 export interface CarouselItem {
     id: string;
@@ -88,18 +89,14 @@ const Carousel: React.FC<CarouselProps> = ({
                             onClick={goToPrevious}
                             aria-label="Previous slide"
                         >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <SvgIcon name="carouselLeftArrow" width="24" height="24" />
                         </button>
                         <button
                             className={`${styles['carousel-arrow']} ${styles['carousel-arrow-right']}`}
                             onClick={goToNext}
                             aria-label="Next slide"
                         >
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                            <SvgIcon name="carouselRightArrow" width="24" height="24" />
                         </button>
                     </>
                 )}
