@@ -2,23 +2,33 @@
 import React from "react";
 import styles from "./MiniCart.module.scss";
 import Image from "next/image";
-import { useCartStore } from "@/services/cartStore";
+import { CartItem, CartItemKey } from "@/types/product";
 
-const MiniCart: React.FC = () => {
-    const items = useCartStore((s) => s.items);
-    const subtotal = useCartStore((s) => s.subtotal);
-    const isOpen = useCartStore((s) => s.isOpen);
-    const close = useCartStore((s) => s.close);
-    const increment = useCartStore((s) => s.increment);
-    const decrement = useCartStore((s) => s.decrement);
-    const removeItem = useCartStore((s) => s.removeItem);
+export interface MiniCartProps {
+    isOpen: boolean;
+    items: CartItem[];
+    subtotal: number;
+    onClose: () => void;
+    onIncrement: (key: CartItemKey) => void;
+    onDecrement: (key: CartItemKey) => void;
+    onRemoveItem: (key: CartItemKey) => void;
+}
 
+const MiniCart: React.FC<MiniCartProps> = ({
+    isOpen,
+    items,
+    subtotal,
+    onClose,
+    onIncrement,
+    onDecrement,
+    onRemoveItem,
+}) => {
     return (
-        <div className={`${styles.overlay} ${isOpen ? styles.show : ""}`} onClick={close}>
+        <div className={`${styles.overlay} ${isOpen ? styles.show : ""}`} onClick={onClose}>
             <aside className={styles.drawer} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.header}>
                     <div className={styles.title}>My Bag</div>
-                    <button className={styles.closeBtn} onClick={close} aria-label="Close">×</button>
+                    <button className={styles.closeBtn} onClick={onClose} aria-label="Close">×</button>
                 </div>
                 <div className={styles.freeBanner}>Free delivery from $150</div>
                 <div className={styles.items}>
@@ -35,12 +45,12 @@ const MiniCart: React.FC = () => {
                                     <div className={styles.variant}>{it.color} · {it.size}</div>
                                     <div className={styles.row}>
                                         <div className={styles.qty}>
-                                            <button onClick={() => decrement({ productId: it.productId, color: it.color, size: it.size })} className={styles.qtyBtn} aria-label="Decrease">−</button>
+                                            <button onClick={() => onDecrement({ productId: it.productId, color: it.color, size: it.size })} className={styles.qtyBtn} aria-label="Decrease">−</button>
                                             <div className={styles.qtyVal}>{it.quantity}</div>
-                                            <button onClick={() => increment({ productId: it.productId, color: it.color, size: it.size })} className={styles.qtyBtn} aria-label="Increase">+</button>
+                                            <button onClick={() => onIncrement({ productId: it.productId, color: it.color, size: it.size })} className={styles.qtyBtn} aria-label="Increase">+</button>
                                         </div>
                                         <div className={styles.price}>${(it.unitPrice * it.quantity).toFixed(2)}</div>
-                                        <button className={styles.remove} onClick={() => removeItem({ productId: it.productId, color: it.color, size: it.size })}>
+                                        <button className={styles.remove} onClick={() => onRemoveItem({ productId: it.productId, color: it.color, size: it.size })}>
                                             Remove
                                         </button>
                                     </div>
@@ -54,7 +64,7 @@ const MiniCart: React.FC = () => {
                         <span>Total</span>
                         <span>${subtotal.toFixed(2)}</span>
                     </div>
-                    <button className={styles.secondary} onClick={close}>Continue shopping</button>
+                    <button className={styles.secondary} onClick={onClose}>Continue shopping</button>
                     <button className={styles.primary}>Go to checkout →</button>
                 </div>
             </aside>

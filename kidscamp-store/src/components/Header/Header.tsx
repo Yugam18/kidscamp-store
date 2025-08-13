@@ -15,6 +15,13 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const itemCount = useCartStore((s) => s.itemCount);
   const toggleCart = useCartStore((s) => s.toggle);
+  const isCartOpen = useCartStore((s) => s.isOpen);
+  const items = useCartStore((s) => s.items);
+  const subtotal = useCartStore((s) => s.subtotal);
+  const closeCart = useCartStore((s) => s.close);
+  const increment = useCartStore((s) => s.increment);
+  const decrement = useCartStore((s) => s.decrement);
+  const removeItem = useCartStore((s) => s.removeItem);
   const router = useRouter();
 
   const openSidebar = () => setIsSidebarOpen(true);
@@ -94,7 +101,15 @@ const Header = () => {
       </header>
 
       <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
-      <MiniCart />
+      <MiniCart
+        isOpen={isCartOpen}
+        items={items}
+        subtotal={subtotal}
+        onClose={closeCart}
+        onIncrement={increment}
+        onDecrement={decrement}
+        onRemoveItem={removeItem}
+      />
     </>
   );
 };

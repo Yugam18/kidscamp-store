@@ -1,15 +1,16 @@
 import { create } from "zustand";
 import { CartItem, CartItemKey, CartState } from "@/types/product";
 
-function getKey(item: CartItemKey): string {
-    return `${item.productId}__${item.color}__${item.size}`;
-}
+// Helper to generate a unique key for a cart item
+const getCartItemKey = ({ productId, color, size }: CartItemKey): string =>
+    `${productId}__${color}__${size}`;
 
-function recalc(items: CartItem[]) {
-    const itemCount = items.reduce((sum, it) => sum + it.quantity, 0);
-    const subtotal = items.reduce((sum, it) => sum + it.unitPrice * it.quantity, 0);
-    return { itemCount, subtotal };
-}
+// Helper to recalculate cart totals
+const calculateCartTotals = (items: CartItem[]) => {
+    const totalItemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+    const totalSubtotal = items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
+    return { itemCount: totalItemCount, subtotal: totalSubtotal };
+};
 
 export const useCartStore = create<CartState>((set, get) => ({
     items: [],
@@ -18,62 +19,75 @@ export const useCartStore = create<CartState>((set, get) => ({
     subtotal: 0,
 
     open: () => set({ isOpen: true }),
+
     close: () => set({ isOpen: false }),
-    toggle: () => set((s) => ({ isOpen: !s.isOpen })),
+
+    toggle: () => set((state) => ({ isOpen: !state.isOpen })),
 
     addItem: (item) => {
-        set((state) => {
-            const index = state.items.findIndex(
-                (it) => getKey(it) === getKey(item)
+        const { items } = get();
+        const existingIndex = items.findIndex(
+            (cartItem) => getCartItemKey(cartItem) === getCartItemKey(item)
+        );
+
+        const updatedItems = existingIndex === -1
+            ? [...items, item]
+            : items.map((cartItem, index) =>
+                index === existingIndex
+                    ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+                    : cartItem
             );
-            let newItems: CartItem[];
-            if (index >= 0) {
-                newItems = state.items.map((it, i) =>
-                    i === index ? { ...it, quantity: it.quantity + item.quantity } : it
-                );
-            } else {
-                newItems = [...state.items, item];
-            }
-            const { itemCount, subtotal } = recalc(newItems);
-            return { items: newItems, itemCount, subtotal, isOpen: true };
-        });
+
+        const { itemCount, subtotal } = calculateCartTotals(updatedItems);
+        set({ items: updatedItems, itemCount, subtotal, isOpen: true });
     },
 
     removeItem: (key) => {
-        set((state) => {
-            const newItems = state.items.filter((it) => getKey(it) !== getKey(key));
-            const { itemCount, subtotal } = recalc(newItems);
-            return { items: newItems, itemCount, subtotal };
-        });
+        const { items } = get();
+        const updatedItems = items.filter((cartItem) => getCartItemKey(cartItem) !== getCartItemKey(key));
+        const { itemCount, subtotal } = calculateCartTotals(updatedItems);
+        set({ items: updatedItems, itemCount, subtotal });
     },
 
     setQuantity: (key, quantity) => {
-        set((state) => {
-            const newItems = state.items
-                .map((it) =>
-                    getKey(it) === getKey(key) ? { ...it, quantity } : it
-                )
-                .filter((it) => it.quantity > 0);
-            const { itemCount, subtotal } = recalc(newItems);
-            return { items: newItems, itemCount, subtotal };
-        });
+        const { items } = get();
+        const updatedItems = items
+            .map((cartItem) =>
+                getCartItemKey(cartItem) === getCartItemKey(key)
+                    ? { ...cartItem, quantity }
+                    : cartItem
+            )
+            .filter((cartItem) => cartItem.quantity > 0);
+
+        const { itemCount, subtotal } = calculateCartTotals(updatedItems);
+        set({ items: updatedItems, itemCount, subtotal });
     },
 
     increment: (key) => {
-        const s = get();
-        const item = s.items.find((it) => getKey(it) === getKey(key));
-        if (!item) return;
-        s.setQuantity(key, item.quantity + 1);
+        const { items } = get();
+        const updatedItems = items.map((cartItem) =>
+            getCartItemKey(cartItem) === getCartItemKey(key)
+                ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                : cartItem
+        );
+
+        const { itemCount, subtotal } = calculateCartTotals(updatedItems);
+        set({ items: updatedItems, itemCount, subtotal });
     },
 
     decrement: (key) => {
-        const s = get();
-        const item = s.items.find((it) => getKey(it) === getKey(key));
-        if (!item) return;
-        s.setQuantity(key, item.quantity - 1);
+        const { items } = get();
+        const updatedItems = items
+            .map((cartItem) =>
+                getCartItemKey(cartItem) === getCartItemKey(key)
+                    ? { ...cartItem, quantity: cartItem.quantity - 1 }
+                    : cartItem
+            )
+            .filter((cartItem) => cartItem.quantity > 0);
+
+        const { itemCount, subtotal } = calculateCartTotals(updatedItems);
+        set({ items: updatedItems, itemCount, subtotal });
     },
 
     clear: () => set({ items: [], itemCount: 0, subtotal: 0 }),
 }));
-
-
