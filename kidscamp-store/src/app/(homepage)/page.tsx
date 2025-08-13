@@ -5,8 +5,92 @@ import NavBar from "@/components/Navbar/Navbar";
 import CarouselWrapper from "@/components/ImageCarousel/CarouselWrapper";
 import ProductSlider from "@/components/ProductSlider/ProductSlider";
 import { client } from "@/services/contentful";
-import { mapHeroAssetsToCarouselItems, mapFeaturedProductsToProductItems } from "./homepage.utils";
+import { 
+  mapHeroAssetsToCarouselItems, 
+  mapFeaturedProductsToProductItems,
+  fetchHomePageCmsData,
+  processHeroImage
+} from "./homepage.utils";
+import { Metadata, ResolvingMetadata } from "next";
 
+export async function generateMetadata(
+  { params }: { params: Promise<{}> },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { heroData } = await fetchHomePageCmsData();
+  const parentMetadata = await parent;
+
+  let baseMetadata: Metadata = {};
+  
+  if (heroData) {
+    const ogImage = processHeroImage(heroData.heroImage);
+    
+    baseMetadata = {
+      ...baseMetadata,
+      title: heroData.metaTitle || "KidsCamp Store - Premium Kids Products",
+      description: heroData.metaDescription || "Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.",
+      keywords: heroData.metaKeywords || "kids store, children products, toys, kids clothing, baby products",
+      authors: [{ name: "KidsCamp Store" }],
+      creator: "KidsCamp Store",
+      publisher: "KidsCamp Store",
+      robots: { index: true, follow: true },
+      alternates: {
+        canonical: "http://localhost:3000",
+      },
+      openGraph: {
+        ...parentMetadata.openGraph,
+        title: heroData.metaTitle || "KidsCamp Store - Premium Kids Products",
+        description: heroData.metaDescription || "Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.",
+        type: "website",
+        locale: "en_US",
+        images: ogImage,
+        siteName: "KidsCamp Store",
+        url: "http://localhost:3000",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: heroData.metaTitle || "KidsCamp Store - Premium Kids Products",
+        description: heroData.metaDescription || "Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.",
+        images: ogImage ? [ogImage[0].url] : undefined,
+        creator: "@kidscampstore",
+        site: "@kidscampstore",
+      },
+      other: { "theme-color": "#4F46E5", "color-scheme": "light" },
+    };
+
+    
+  } else {
+    baseMetadata = {
+      title: "KidsCamp Store - Premium Kids Products",
+      description: "Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.",
+      keywords: "kids store, children products, toys, kids clothing, baby products",
+      authors: [{ name: "KidsCamp Store" }],
+      creator: "KidsCamp Store",
+      publisher: "KidsCamp Store",
+      robots: { index: true, follow: true },
+      alternates: { canonical: "http://localhost:3000" },
+      openGraph: {
+        ...parentMetadata.openGraph,
+        title: "KidsCamp Store - Premium Kids Products",
+        description: "Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.",
+        type: "website",
+        locale: "en_US",
+        siteName: "KidsCamp Store",
+        url: "http://localhost:3000",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "KidsCamp Store - Premium Kids Products",
+        description: "Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.",
+        creator: "@kidscampstore",
+        site: "@kidscampstore",
+      },
+      other: { "theme-color": "#4F46E5", "color-scheme": "light" },
+    };
+  }
+
+  return baseMetadata;
+}
 
 export default async function Home() {
 

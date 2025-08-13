@@ -1,4 +1,4 @@
-
+import { client } from "@/services/contentful";
 export interface CarouselItem {
   id: string;
   imageUrl: string;
@@ -78,4 +78,40 @@ export function mapFeaturedProductsToProductItems(products: unknown): ProductIte
       return { id, imageUrl, brand, name, price } as ProductItem;
     })
     .filter((item) => item.id && item.imageUrl && item.name);
+}
+
+
+
+export async function fetchHomePageCmsData() {
+  try {
+    const response = await client.getEntries({
+      content_type: 'homepage',
+      limit: 1,
+      include: 2
+    });
+
+    const homepage = response.items[0]?.fields as any;
+    return { heroData: homepage };
+  } catch (error) {
+    console.error("Error fetching homepage data:", error);
+    return { heroData: null };
+  }
+}
+
+export function processHeroImage(heroImage: any) {
+  if (!Array.isArray(heroImage) || heroImage.length === 0) return undefined;
+  
+  const firstImage = heroImage[0];
+  if (!firstImage?.fields?.file?.url) return undefined;
+  
+  const imageUrl = firstImage.fields.file.url.startsWith('//') 
+    ? `https:${firstImage.fields.file.url}` 
+    : firstImage.fields.file.url;
+    
+  return [{
+    url: imageUrl,
+    width: 1200,
+    height: 630,
+    alt: typeof firstImage.fields.title === 'string' ? firstImage.fields.title : "KidsCamp Store",
+  }];
 }
