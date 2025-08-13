@@ -27,9 +27,10 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [currentX, setCurrentX] = useState(0);
+    const [isClient, setIsClient] = useState(false);
     const sliderRef = useRef<HTMLDivElement>(null);
 
-    // Responsive number of visible products
+    // Hydration-safe window width detection
     const getMaxVisible = () => {
         if (typeof window !== 'undefined') {
             if (window.innerWidth <= 480) return 1;
@@ -37,13 +38,16 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
             if (window.innerWidth <= 1024) return 3;
             return 5;
         }
-        return 5; // Default for SSR
+        return 5; 
     };
 
-    const [maxVisible, setMaxVisible] = useState(getMaxVisible());
+    const [maxVisible, setMaxVisible] = useState(5); 
 
-    // Update maxVisible on window resize
+    // Set client flag after hydration
     React.useEffect(() => {
+        setIsClient(true);
+        setMaxVisible(getMaxVisible());
+        
         const handleResize = () => {
             setMaxVisible(getMaxVisible());
         };
@@ -156,43 +160,69 @@ const ProductSlider: React.FC<ProductSliderProps> = ({
             </div>
 
             <div className={styles.sliderContainer}>
-                <div
-                    ref={sliderRef}
-                    className={styles.slider}
-                    style={{
-                        transform: `translateX(-${currentIndex * (100 / maxVisible)}%)`,
-                        cursor: isDragging ? 'grabbing' : 'grab'
-                    }}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseUp}
-                >
-                    {products.map((product) => (
-                        <Link
-                            key={product.id}
-                            href={`/product/${product.id}`}
-                            className={styles.productCard}
-                        >
-                            <div className={styles.imageContainer}>
-                              
-                                <img
-                                    src={product.imageUrl}
-                                    alt={product.name}
-                                    className={styles.productImage}
-                                />
-                            </div>
-                            <div className={styles.productInfo}>
-                                <p className={styles.brand}>{product.brand}</p>
-                                <p className={styles.name}>{product.name}</p>
-                                <p className={styles.price}>£{product.price.toFixed(2)}</p>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+                {isClient ? (
+                    <div
+                        ref={sliderRef}
+                        className={styles.slider}
+                        style={{
+                            transform: `translateX(-${currentIndex * (100 / maxVisible)}%)`,
+                            cursor: isDragging ? 'grabbing' : 'grab'
+                        }}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUp}
+                        onMouseLeave={handleMouseUp}
+                    >
+                        {products.map((product) => (
+                            <Link
+                                key={product.id}
+                                href={`/product/${product.id}`}
+                                className={styles.productCard}
+                            >
+                                <div className={styles.imageContainer}>
+                                  
+                                    <img
+                                        src={product.imageUrl}
+                                        alt={product.name}
+                                        className={styles.productImage}
+                                    />
+                                </div>
+                                <div className={styles.productInfo}>
+                                    <p className={styles.brand}>{product.brand}</p>
+                                    <p className={styles.name}>{product.name}</p>
+                                    <p className={styles.price}>£{product.price.toFixed(2)}</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                ) : (
+                    // Server-side fallback - show products in a grid layout
+                    <div className={styles.slider}>
+                        {products.slice(0, 5).map((product) => (
+                            <Link
+                                key={product.id}
+                                href={`/product/${product.id}`}
+                                className={styles.productCard}
+                            >
+                                <div className={styles.imageContainer}>
+                                    <img
+                                        src={product.imageUrl}
+                                        alt={product.name}
+                                        className={styles.productImage}
+                                    />
+                                </div>
+                                <div className={styles.productInfo}>
+                                    <p className={styles.brand}>{product.brand}</p>
+                                    <p className={styles.name}>{product.name}</p>
+                                    <p className={styles.price}>£{product.price.toFixed(2)}</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );

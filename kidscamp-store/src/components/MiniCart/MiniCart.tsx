@@ -30,7 +30,6 @@ const MiniCart: React.FC<MiniCartProps> = ({
                     <div className={styles.title}>My Bag</div>
                     <button className={styles.closeBtn} onClick={onClose} aria-label="Close">×</button>
                 </div>
-                <div className={styles.freeBanner}>Free delivery from $150</div>
                 <div className={styles.items}>
                     {items.length === 0 ? (
                         <div className={styles.empty}>Your cart is empty</div>

@@ -1,18 +1,6 @@
 import styles from './Nav.module.scss';
 import Link from 'next/link';
-
-const NAV_ITEMS = [
-  { title: 'SALE', href: '/sale' },
-  { title: 'NEW IN', href: '/new-in' },
-  { title: 'PRODUCTS', href: '/products' },
-  { title: 'BABY', href: '/baby' },
-  { title: 'BOY', href: '/boy' },
-  { title: 'GIRL', href: '/girl' },
-  { title: 'ACCESSORIES', href: '/accessories' },
-  { title: 'BRANDS', href: '/brands' },
-  { title: 'STORE', href: '/store' },
-  { title: 'EXPLORE LITTLE TAGS', href: '/explore' },
-];
+import { NAV_ITEMS } from '@/utils/constants';
 
 export default function NavBar() {
   return (

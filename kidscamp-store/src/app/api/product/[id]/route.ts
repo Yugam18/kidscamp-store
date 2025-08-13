@@ -7,7 +7,7 @@ export async function GET(
 ) {
     const { id } = await params;
 
-    const product = productsData.products.find((p) => p.id === id);
+    const product = productsData.products.find((p) => p.id === id || p.category_id === id);
 
     if (!product) {
         return NextResponse.json(
