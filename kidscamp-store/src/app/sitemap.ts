@@ -1,11 +1,12 @@
-import type { MetadataRoute } from 'next'
-import productsData from './api/products.json'
+import type { MetadataRoute } from 'next';
+import productsData from './api/products.json';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-  type ProductItem = { id: string }
-  const products: ProductItem[] = (productsData as { products: ProductItem[] }).products
+  type ProductItem = { id: string };
+  const products: ProductItem[] = (productsData as { products: ProductItem[] })
+    .products;
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -20,14 +21,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.9,
     },
-  ]
+  ];
 
   const productRoutes: MetadataRoute.Sitemap = products.map((product) => ({
     url: `${baseUrl}/product/${product.id}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.7,
-  }))
+  }));
 
-  return [...staticRoutes, ...productRoutes]
+  return [...staticRoutes, ...productRoutes];
 }

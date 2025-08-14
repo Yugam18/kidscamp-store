@@ -10,14 +10,16 @@ interface SearchProps {
   onSearch: (query: string) => void;
 }
 
-const Search: React.FC<SearchProps> = ({ 
-  className = '', 
-  placeholder = "Search for anything",
+const Search: React.FC<SearchProps> = ({
+  className = '',
+  placeholder = 'Search for anything',
   value,
   onChange,
-  onSearch
+  onSearch,
 }) => {
-  const handleSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+  const handleSearchKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (
+    e,
+  ) => {
     if (e.key === 'Enter') {
       const query = value.trim();
       if (query.length > 0) {

@@ -8,10 +8,7 @@ export default function NavBar() {
       <ul className={styles.menu}>
         {NAV_ITEMS.map((item) => (
           <li key={item.title} className={styles.menuItem}>
-            <Link
-              href={item.href}
-              className={styles.link}
-            >
+            <Link href={item.href} className={styles.link}>
               {item.title}
             </Link>
           </li>

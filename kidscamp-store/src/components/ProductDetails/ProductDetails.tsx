@@ -1,10 +1,10 @@
-'use client'
-import React, { useState } from "react";
-import styles from "./ProductDetails.module.scss";
-import ProductDescription from "../ProductDescription/ProductDescription";
+'use client';
+import React, { useState } from 'react';
+import styles from './ProductDetails.module.scss';
+import ProductDescription from '../ProductDescription/ProductDescription';
 import { Product } from '@/types/product';
-import QuantitySelector from "@/components/QuantitySelector/QuantitySelector";
-import { useCartStore } from "@/services/cartStore";
+import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
+import { useCartStore } from '@/services/cartStore';
 import { getSpecificPrice, formatCategoryName } from '@/utils/productUtils';
 
 // Interface for product details props
@@ -13,19 +13,22 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
-  const [selectedColor, setSelectedColor] = useState<string>(product.color_variants[0] || "");
-  const [selectedSize, setSelectedSize] = useState<string>("");
+  const [selectedColor, setSelectedColor] = useState<string>(
+    product.color_variants[0] || '',
+  );
+  const [selectedSize, setSelectedSize] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(1);
   const addToCart = useCartStore((s) => s.addItem);
 
   const categoryName = formatCategoryName(product.category_id);
-  const currentPricing = selectedColor && selectedSize ?
-    getSpecificPrice(product, selectedColor, selectedSize) :
-    { price: 0, hasDiscount: false };
+  const currentPricing =
+    selectedColor && selectedSize
+      ? getSpecificPrice(product, selectedColor, selectedSize)
+      : { price: 0, hasDiscount: false };
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
-    setSelectedSize(""); // Reset size when color changes
+    setSelectedSize(''); // Reset size when color changes
   };
 
   const handleSizeChange = (size: string) => {
@@ -59,11 +62,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           <div className={styles.priceContainer}>
             <span className={styles.price}>${currentPricing.price}</span>
             {currentPricing.hasDiscount && currentPricing.originalPrice && (
-              <span className={styles.originalPrice}>${currentPricing.originalPrice}</span>
+              <span className={styles.originalPrice}>
+                ${currentPricing.originalPrice}
+              </span>
             )}
           </div>
         ) : (
-          <div className={styles.priceHint}>Select color and size to see price</div>
+          <div className={styles.priceHint}>
+            Select color and size to see price
+          </div>
         )}
       </div>
 
@@ -73,7 +80,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           {product.color_variants.map((color) => (
             <button
               key={color}
-              className={`${styles.colorButton} ${selectedColor === color ? styles.selected : ""}`}
+              className={`${styles.colorButton} ${selectedColor === color ? styles.selected : ''}`}
               onClick={() => handleColorChange(color)}
             >
               {color}
@@ -88,9 +95,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           {product.size_variants.map((size) => (
             <button
               key={size}
-              className={`${styles.sizeButton} ${selectedSize === size ? styles.selected : ""}`}
+              className={`${styles.sizeButton} ${selectedSize === size ? styles.selected : ''}`}
               onClick={() => handleSizeChange(size)}
-              disabled={!!selectedColor && !product.prices[selectedColor]?.[size]}
+              disabled={
+                !!selectedColor && !product.prices[selectedColor]?.[size]
+              }
             >
               {size}
             </button>
@@ -109,7 +118,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         </div>
         <div className={styles.infoItem}>
           <span className={styles.label}>Tag:</span>
-          <span className={`${styles.tag} ${styles[product.tag]}`}>{product.tag}</span>
+          <span className={`${styles.tag} ${styles[product.tag]}`}>
+            {product.tag}
+          </span>
         </div>
       </div>
 

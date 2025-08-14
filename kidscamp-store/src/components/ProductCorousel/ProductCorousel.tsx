@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import Image from 'next/image';
@@ -10,7 +10,10 @@ interface ProductImageCarouselProps {
   alt: string;
 }
 
-const ProductCorousel: React.FC<ProductImageCarouselProps> = ({ images, alt }) => {
+const ProductCorousel: React.FC<ProductImageCarouselProps> = ({
+  images,
+  alt,
+}) => {
   const [selectedImage, setSelectedImage] = useState(0);
 
   const handleThumbnailClick = (index: number) => {
@@ -30,13 +33,25 @@ const ProductCorousel: React.FC<ProductImageCarouselProps> = ({ images, alt }) =
   return (
     <div className={styles.carouselContainer}>
       <div className={styles.imageContainer}>
-        <button className={`${styles.arrow} ${styles.prev}`} onClick={() => handleArrowClick('prev')}>
+        <button
+          className={`${styles.arrow} ${styles.prev}`}
+          onClick={() => handleArrowClick('prev')}
+        >
           ←
         </button>
         <div className={styles.mainImage}>
-          <Image src={images[selectedImage] || demoImage} alt={alt} layout="responsive" width={500} height={500} />
+          <Image
+            src={images[selectedImage] || demoImage}
+            alt={alt}
+            layout="responsive"
+            width={500}
+            height={500}
+          />
         </div>
-        <button className={`${styles.arrow} ${styles.next}`} onClick={() => handleArrowClick('next')}>
+        <button
+          className={`${styles.arrow} ${styles.next}`}
+          onClick={() => handleArrowClick('next')}
+        >
           →
         </button>
       </div>
@@ -48,7 +63,13 @@ const ProductCorousel: React.FC<ProductImageCarouselProps> = ({ images, alt }) =
             className={`${styles.thumbnail} ${selectedImage === index ? styles.selected : ''}`}
             onClick={() => handleThumbnailClick(index)}
           >
-            <Image src={src} alt={alt} layout="intrinsic" width={60} height={60} />
+            <Image
+              src={src}
+              alt={alt}
+              layout="intrinsic"
+              width={60}
+              height={60}
+            />
           </div>
         ))}
       </div>

@@ -1,4 +1,4 @@
-import { client } from "@/services/contentful";
+import { client } from '@/services/contentful';
 export interface CarouselItem {
   id: string;
   imageUrl: string;
@@ -52,7 +52,9 @@ function normalizeContentfulUrl(url?: string): string | undefined {
   return url;
 }
 
-export function mapHeroAssetsToCarouselItems(assets: unknown): BasicCarouselItem[] {
+export function mapHeroAssetsToCarouselItems(
+  assets: unknown,
+): BasicCarouselItem[] {
   if (!Array.isArray(assets)) return [];
 
   return (assets as ContentfulAssetLike[])
@@ -64,7 +66,9 @@ export function mapHeroAssetsToCarouselItems(assets: unknown): BasicCarouselItem
     .filter((item) => item.id && item.imageUrl);
 }
 
-export function mapFeaturedProductsToProductItems(products: unknown): ProductItem[] {
+export function mapFeaturedProductsToProductItems(
+  products: unknown,
+): ProductItem[] {
   if (!Array.isArray(products)) return [];
 
   return (products as ContentfulProductEntry[])
@@ -73,45 +77,51 @@ export function mapFeaturedProductsToProductItems(products: unknown): ProductIte
       const name = product?.fields?.title ?? '';
       const brand = product?.fields?.subText ?? 'KidsCamp';
       const price = parseFloat(product?.fields?.price?.replace('$', '') ?? '0');
-      const imageUrl = normalizeContentfulUrl(product?.fields?.productImage?.fields?.file?.url) ?? '';
-      
+      const imageUrl =
+        normalizeContentfulUrl(
+          product?.fields?.productImage?.fields?.file?.url,
+        ) ?? '';
+
       return { id, imageUrl, brand, name, price } as ProductItem;
     })
     .filter((item) => item.id && item.imageUrl && item.name);
 }
-
-
 
 export async function fetchHomePageCmsData() {
   try {
     const response = await client.getEntries({
       content_type: 'homepage',
       limit: 1,
-      include: 2
+      include: 2,
     });
 
     const homepage = response.items[0]?.fields as any;
     return { heroData: homepage };
   } catch (error) {
-    console.error("Error fetching homepage data:", error);
+    console.error('Error fetching homepage data:', error);
     return { heroData: null };
   }
 }
 
 export function processHeroImage(heroImage: any) {
   if (!Array.isArray(heroImage) || heroImage.length === 0) return undefined;
-  
+
   const firstImage = heroImage[0];
   if (!firstImage?.fields?.file?.url) return undefined;
-  
-  const imageUrl = firstImage.fields.file.url.startsWith('//') 
-    ? `https:${firstImage.fields.file.url}` 
+
+  const imageUrl = firstImage.fields.file.url.startsWith('//')
+    ? `https:${firstImage.fields.file.url}`
     : firstImage.fields.file.url;
-    
-  return [{
-    url: imageUrl,
-    width: 1200,
-    height: 630,
-    alt: typeof firstImage.fields.title === 'string' ? firstImage.fields.title : "KidsCamp Store",
-  }];
+
+  return [
+    {
+      url: imageUrl,
+      width: 1200,
+      height: 630,
+      alt:
+        typeof firstImage.fields.title === 'string'
+          ? firstImage.fields.title
+          : 'KidsCamp Store',
+    },
+  ];
 }

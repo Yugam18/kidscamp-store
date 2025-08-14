@@ -1,7 +1,7 @@
 import { createClient } from 'contentful';
 
 export const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID!,       // Your Space ID
+  space: process.env.CONTENTFUL_SPACE_ID!, // Your Space ID
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!, // Your CDA token
 });
 
@@ -36,7 +36,9 @@ export function normalizeContentfulUrl(url?: string): string | undefined {
   return url;
 }
 
-export function mapAssetsToBasicCarouselItems(assets: unknown): BasicCarouselItem[] {
+export function mapAssetsToBasicCarouselItems(
+  assets: unknown,
+): BasicCarouselItem[] {
   if (!Array.isArray(assets)) return [];
 
   return (assets as ContentfulAssetLike[])

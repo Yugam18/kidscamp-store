@@ -39,7 +39,11 @@ const Header = () => {
     <>
       <header className={styles.header}>
         <div className={styles.topRow}>
-          <button className={styles.hamburgerMenu} aria-label="Menu" onClick={openSidebar}>
+          <button
+            className={styles.hamburgerMenu}
+            aria-label="Menu"
+            onClick={openSidebar}
+          >
             <SvgIcon name="menu" width="24" height="24" />
           </button>
 
@@ -53,16 +57,22 @@ const Header = () => {
             <button className={styles.iconBtn} aria-label="User Profile">
               <SvgIcon name="user" width="24" height="24" />
             </button>
-            <button className={styles.iconBtn} aria-label="Cart" onClick={toggleCart}>
+            <button
+              className={styles.iconBtn}
+              aria-label="Cart"
+              onClick={toggleCart}
+            >
               <SvgIcon name="cart" width="24" height="24" />
-              {itemCount > 0 && <span className={styles.badge}>{itemCount}</span>}
+              {itemCount > 0 && (
+                <span className={styles.badge}>{itemCount}</span>
+              )}
             </button>
           </nav>
         </div>
 
         {/* Search Row - Mobile/Tablet */}
         <div className={styles.searchRow}>
-          <Search 
+          <Search
             value={searchTerm}
             onChange={handleSearchChange}
             onSearch={handleSearch}
@@ -78,7 +88,7 @@ const Header = () => {
           </div>
 
           <div className={styles.searchWrapper}>
-            <Search 
+            <Search
               value={searchTerm}
               onChange={handleSearchChange}
               onSearch={handleSearch}
@@ -92,9 +102,15 @@ const Header = () => {
             <button className={styles.iconBtn} aria-label="Wishlist">
               <SvgIcon name="wishlist" width="24" height="24" />
             </button>
-            <button className={styles.iconBtn} aria-label="Cart" onClick={toggleCart}>
+            <button
+              className={styles.iconBtn}
+              aria-label="Cart"
+              onClick={toggleCart}
+            >
               <SvgIcon name="cart" width="24" height="24" />
-              {itemCount > 0 && <span className={styles.badge}>{itemCount}</span>}
+              {itemCount > 0 && (
+                <span className={styles.badge}>{itemCount}</span>
+              )}
             </button>
           </nav>
         </div>

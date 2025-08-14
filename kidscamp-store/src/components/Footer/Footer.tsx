@@ -1,34 +1,34 @@
-import Link from "next/link";
-import styles from "./Footer.module.scss";
-import Image from "next/image";
-import SvgIcon from "../SvgIcon/SvgIcon";
+import Link from 'next/link';
+import styles from './Footer.module.scss';
+import Image from 'next/image';
+import SvgIcon from '../SvgIcon/SvgIcon';
 
 const customerCareLinks = [
-  { label: "Holiday Shipping", href: "#" },
-  { label: "Shipping & Delivery", href: "#" },
-  { label: "F.A.Q.s", href: "#" },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms & Conditions", href: "#" },
-  { label: "Contact Us", href: "#" },
-  { label: "Returns Guide", href: "#" },
-  { label: "Do Not Sell My Personal Info", href: "#" },
+  { label: 'Holiday Shipping', href: '#' },
+  { label: 'Shipping & Delivery', href: '#' },
+  { label: 'F.A.Q.s', href: '#' },
+  { label: 'Privacy Policy', href: '#' },
+  { label: 'Terms & Conditions', href: '#' },
+  { label: 'Contact Us', href: '#' },
+  { label: 'Returns Guide', href: '#' },
+  { label: 'Do Not Sell My Personal Info', href: '#' },
 ];
 
 const companyLinks = [
-  { label: "Careers", href: "#" },
-  { label: "Partner With Us", href: "#" },
-  { label: "Press", href: "#" },
-  { label: "Accessibility", href: "#" },
-  { label: "Size Guide", href: "#" },
-  { label: "Sitemap", href: "#" },
-  { label: "Become a Brand Ambassador", href: "#" },
+  { label: 'Careers', href: '#' },
+  { label: 'Partner With Us', href: '#' },
+  { label: 'Press', href: '#' },
+  { label: 'Accessibility', href: '#' },
+  { label: 'Size Guide', href: '#' },
+  { label: 'Sitemap', href: '#' },
+  { label: 'Become a Brand Ambassador', href: '#' },
 ];
 
 const socialLinks = [
-  { label: "Instagram", href: "#", iconClass: "icon-instagram" },
-  { label: "Twitter", href: "#", iconClass: "icon-twitter" },
-  { label: "Facebook", href: "#", iconClass: "icon-facebook" },
-  { label: "Pinterest", href: "#", iconClass: "icon-pinterest" },
+  { label: 'Instagram', href: '#', iconClass: 'icon-instagram' },
+  { label: 'Twitter', href: '#', iconClass: 'icon-twitter' },
+  { label: 'Facebook', href: '#', iconClass: 'icon-facebook' },
+  { label: 'Pinterest', href: '#', iconClass: 'icon-pinterest' },
 ];
 
 export default function Footer() {
@@ -60,11 +60,15 @@ export default function Footer() {
           </nav>
 
           <section className={styles.section} aria-labelledby="contact-heading">
-            <h2 className={styles.heading} id="contact-heading">CONTACT US</h2>
+            <h2 className={styles.heading} id="contact-heading">
+              CONTACT US
+            </h2>
             <address>
               <p className={styles.text}>Mon—Fri: 10am—6pm Eastern</p>
               <p className={styles.text}>
-                <a href="mailto:customercare@kidscamp.com">customercare@kidscamp.com</a>
+                <a href="mailto:customercare@kidscamp.com">
+                  customercare@kidscamp.com
+                </a>
               </p>
             </address>
             <div className={styles.social} aria-label="Social Media Links">
@@ -82,14 +86,26 @@ export default function Footer() {
 
         {/* Right Section - Mailing List & App Download */}
         <div className={styles.rightSection}>
-          <section className={styles.mailingList} aria-labelledby="newsletter-heading">
-            <h2 className={styles.heading} id="newsletter-heading">JOIN OUR MAILING LIST</h2>
+          <section
+            className={styles.mailingList}
+            aria-labelledby="newsletter-heading"
+          >
+            <h2 className={styles.heading} id="newsletter-heading">
+              JOIN OUR MAILING LIST
+            </h2>
             <p className={styles.text}>
-              Fresh arrivals, new and new-to-you brands, and expert edits. Basically, a bundle of joy in email form.
+              Fresh arrivals, new and new-to-you brands, and expert edits.
+              Basically, a bundle of joy in email form.
             </p>
             <form className={styles.subscribe} aria-label="Newsletter Signup">
-              <label htmlFor="newsletter-email" className="visually-hidden">Email address</label>
-              <input id="newsletter-email" type="email" placeholder="Enter your email" />
+              <label htmlFor="newsletter-email" className="visually-hidden">
+                Email address
+              </label>
+              <input
+                id="newsletter-email"
+                type="email"
+                placeholder="Enter your email"
+              />
               <button type="submit" aria-label="Subscribe to newsletter">
                 <SvgIcon name="rightArrowSmall" width="16" height="16" />
               </button>
@@ -97,7 +113,9 @@ export default function Footer() {
           </section>
 
           <section className={styles.appDownload} aria-labelledby="app-heading">
-            <h2 className={styles.heading} id="app-heading">DOWNLOAD THE APP</h2>
+            <h2 className={styles.heading} id="app-heading">
+              DOWNLOAD THE APP
+            </h2>
             <p className={styles.text}>
               Download our official app from the app store
             </p>
