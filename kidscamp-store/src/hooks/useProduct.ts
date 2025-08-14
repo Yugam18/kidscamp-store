@@ -1,54 +1,37 @@
-import { useState, useEffect } from 'react';
+import useSWR from 'swr';
 import { Product } from '@/types/product';
 
+const fetcher = async (url: string) => {
+    const res = await fetch(url);
+    
+    if (!res.ok) {
+        throw new Error('Product not found');
+    }
+    
+    const productData = await res.json();
+    
+    const cleanProduct: Product = {
+        ...productData,
+        prices: Object.fromEntries(
+            Object.entries(productData.prices).filter(([_, colorPrices]) => colorPrices !== undefined)
+        ) as Record<string, Record<string, number>>,
+        discounted_prices: productData.discounted_prices ? Object.fromEntries(
+            Object.entries(productData.discounted_prices).filter(([_, colorPrices]) => colorPrices !== undefined)
+        ) as Record<string, Record<string, number>> : undefined
+    };
+    
+    return cleanProduct;
+};
+
 export const useProduct = (id: string) => {
-    const [product, setProduct] = useState<Product | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { data: product, error, isLoading } = useSWR(
+        id ? `/api/product/${id}` : null,
+        fetcher
+    );
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                setLoading(true);
-                setError(null);
-                
-                const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-                const res = await fetch(`${baseUrl}/api/product/${id}`, { 
-                    cache: 'no-store' 
-                });
-                
-                if (!res.ok) {
-                    setError('Product not found');
-                    setProduct(null);
-                    return;
-                }
-                
-                const productData = await res.json();
-                
-                const cleanProduct: Product = {
-                    ...productData,
-                    prices: Object.fromEntries(
-                        Object.entries(productData.prices).filter(([_, colorPrices]) => colorPrices !== undefined)
-                    ) as Record<string, Record<string, number>>,
-                    discounted_prices: productData.discounted_prices ? Object.fromEntries(
-                        Object.entries(productData.discounted_prices).filter(([_, colorPrices]) => colorPrices !== undefined)
-                    ) as Record<string, Record<string, number>> : undefined
-                };
-                
-                setProduct(cleanProduct);
-            } catch (error) {
-                console.error('Error fetching product:', error);
-                setError('Failed to fetch product');
-                setProduct(null);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (id) {
-            fetchProduct();
-        }
-    }, [id]);
-
-    return { product, loading, error };
+    return {
+        product: product || null,
+        loading: isLoading,
+        error: error?.message || null
+    };
 }; 
