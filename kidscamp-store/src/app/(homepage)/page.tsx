@@ -13,6 +13,9 @@ import {
 } from "./homepage.utils";
 import { Metadata, ResolvingMetadata } from "next";
 
+// ISR Configuration - revalidate every 1 minute
+export const revalidate = 60;
+
 export async function generateMetadata(
   { params }: { params: Promise<{}> },
   parent: ResolvingMetadata
@@ -100,9 +103,6 @@ export default async function Home() {
     content_type: 'homepage',
     limit: 10
   });
-
-  const assets = await client.getAssets();
-
   
 
   const homepage = response.items[0]?.fields;

@@ -25,9 +25,7 @@ export class ProductsApiService {
         }
     }
 
-    /**
-     * Fetch a single product by ID
-     */
+   
     static async getProductById(id: string): Promise<Product> {
         try {
             const response = await fetch(`${API_BASE_URL}/products/${id}`);

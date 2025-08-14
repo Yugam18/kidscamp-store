@@ -7,30 +7,9 @@ import NavBar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import ProductDetails from '@/components/ProductDetails/ProductDetails';
 import ProductCorousel from '@/components/ProductCorousel/ProductCorousel';
-import { Product } from '@/types/product';
 import { getProductImages } from '@/utils/productUtils';
-import productsData from '@/app/api/products.json';
+import { getProductById } from '@/services/productService';
 
-// Helper function to get product by ID
-async function getProductById(id: string): Promise<Product | null> {
-    const product = productsData.products.find((p) => p.id === id);
-    if (!product) return null;
-    
-    // Ensure the product matches the Product type by filtering out undefined values
-    const cleanProduct: Product = {
-        ...product,
-        prices: Object.fromEntries(
-            Object.entries(product.prices).filter(([_, colorPrices]) => colorPrices !== undefined)
-        ) as Record<string, Record<string, number>>,
-        discounted_prices: product.discounted_prices ? Object.fromEntries(
-            Object.entries(product.discounted_prices).filter(([_, colorPrices]) => colorPrices !== undefined)
-        ) as Record<string, Record<string, number>> : undefined
-    };
-    
-    return cleanProduct;
-}
-
-// Metadata generation function
 export async function generateMetadata(
     { params }: { params: Promise<{ id: string }> },
     parent: ResolvingMetadata
@@ -45,7 +24,6 @@ export async function generateMetadata(
             description: 'The requested product could not be found.',
         };
     }
-
 
     const firstImageUrl = product.imgUrl && product.imgUrl.length > 0 
         ? product.imgUrl[0] 
@@ -89,7 +67,6 @@ export async function generateMetadata(
     return baseMetadata;
 }
 
-// Server component for product detail page
 export default async function ProductDetailPage({ 
     params 
 }: { 

@@ -1,4 +1,4 @@
-// Product types based on the API data structure
+
 
 export interface Product {
     id: string;
