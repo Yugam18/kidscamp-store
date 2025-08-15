@@ -39,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, rating = 0 }) => {
   };
 
   return (
-    <Link href={`/product/${product.id}`} className={styles.productCard}>
+    <Link href={`/product/${product.id}`} className={styles.productCard} data-testid="product-link">
       <div className={styles.imageContainer}>
         <Image
           src={product.imgUrl.length > 0 ? product.imgUrl[0] : demoImage}
@@ -48,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, rating = 0 }) => {
           height={300}
           className={styles.productImage}
         />
-        {isNew && <div className={styles.newBadge}>NEW</div>}
+        {isNew && <div className={styles.newBadge} data-testid="product-badge-new">NEW</div>}
         {priceInfo.hasDiscount && (
           <div className={styles.discountBadge}>SALE</div>
         )}
@@ -56,13 +56,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, rating = 0 }) => {
 
       <div className={styles.productInfo}>
         <div className={styles.brand}>{categoryName}</div>
-        <h3 className={styles.productName}>{product.name}</h3>
-        <p className={styles.shortDescription}>{product.short_description}</p>
+        <h3 className={styles.productName} data-testid="product-name">{product.name}</h3>
+        <p className={styles.shortDescription} data-testid="product-short-description">{product.short_description}</p>
 
         <div className={styles.rating}>{renderStars(rating)}</div>
 
         <div className={styles.priceContainer}>
-          <span className={styles.price}>
+          <span className={styles.price} data-testid="product-price">
             ${priceInfo.lowestPrice.toFixed(2)}
           </span>
           {priceInfo.originalPrice && (

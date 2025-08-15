@@ -7,7 +7,6 @@ import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import { useCartStore } from '@/services/cartStore';
 import { getSpecificPrice, formatCategoryName } from '@/utils/productUtils';
 
-// Interface for product details props
 interface ProductDetailsProps {
   product: Product;
 }
@@ -28,7 +27,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
-    setSelectedSize(''); // Reset size when color changes
+    setSelectedSize('');
   };
 
   const handleSizeChange = (size: string) => {

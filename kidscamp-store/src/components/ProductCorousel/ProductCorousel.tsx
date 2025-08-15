@@ -36,6 +36,7 @@ const ProductCorousel: React.FC<ProductImageCarouselProps> = ({
         <button
           className={`${styles.arrow} ${styles.prev}`}
           onClick={() => handleArrowClick('prev')}
+          data-testid="arrow-prev"
         >
           ←
         </button>
@@ -46,17 +47,19 @@ const ProductCorousel: React.FC<ProductImageCarouselProps> = ({
             layout="responsive"
             width={500}
             height={500}
+            data-testid="main-image"
           />
         </div>
         <button
           className={`${styles.arrow} ${styles.next}`}
           onClick={() => handleArrowClick('next')}
+          data-testid="arrow-next"
         >
           →
         </button>
       </div>
 
-      <div className={styles.thumbnails}>
+      <div className={styles.thumbnails} data-testid="thumbnails">
         {images.map((src, index) => (
           <div
             key={index}
@@ -69,6 +72,7 @@ const ProductCorousel: React.FC<ProductImageCarouselProps> = ({
               layout="intrinsic"
               width={60}
               height={60}
+              data-testid="thumbnail-img"
             />
           </div>
         ))}

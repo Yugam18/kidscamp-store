@@ -41,8 +41,8 @@ src/
 ```
 
 ## Prerequisites
-- Node.js 18.18+ (recommended 20+)
-- npm 9+ (or yarn/pnpm/bun if you prefer)
+- Node.js 18.18+ 
+- npm 9+
 
 ## Environment Variables
 Create a `.env` file in the project root (`kidscamp-store/`).
@@ -54,10 +54,7 @@ Create a `.env` file in the project root (`kidscamp-store/`).
 - `npm run lint` — run ESLint
 - `npm run format` — format with Prettier
 
-Equivalent commands for yarn/pnpm/bun:
-- yarn: `yarn dev`, `yarn build`, `yarn start`
-- pnpm: `pnpm dev`, `pnpm build`, `pnpm start`
-- bun: `bun dev`, `bun run build`, `bun run start`
+
 
 ## Getting Started
 1) Install dependencies
@@ -95,11 +92,7 @@ npm run start
     });
     ```
 
-- **SSR**: Product detail page (`src/app/product/[id]/page.tsx`) runs on the server by default (App Router). It fetches via a server-side helper that disables caching for freshness:
-  ```ts
-  // src/services/productService.ts
-  fetch(`${baseUrl}/api/product/${id}`, { cache: 'no-store' })
-  ```
+
 
 - **ISR**: Homepage (`src/app/(homepage)/page.tsx`) enables Incremental Static Regeneration with:
   ```ts
