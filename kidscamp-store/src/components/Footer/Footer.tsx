@@ -1,35 +1,7 @@
 import Link from 'next/link';
 import styles from './Footer.module.scss';
-import Image from 'next/image';
 import SvgIcon from '../SvgIcon/SvgIcon';
-
-const customerCareLinks = [
-  { label: 'Holiday Shipping', href: '#' },
-  { label: 'Shipping & Delivery', href: '#' },
-  { label: 'F.A.Q.s', href: '#' },
-  { label: 'Privacy Policy', href: '#' },
-  { label: 'Terms & Conditions', href: '#' },
-  { label: 'Contact Us', href: '#' },
-  { label: 'Returns Guide', href: '#' },
-  { label: 'Do Not Sell My Personal Info', href: '#' },
-];
-
-const companyLinks = [
-  { label: 'Careers', href: '#' },
-  { label: 'Partner With Us', href: '#' },
-  { label: 'Press', href: '#' },
-  { label: 'Accessibility', href: '#' },
-  { label: 'Size Guide', href: '#' },
-  { label: 'Sitemap', href: '#' },
-  { label: 'Become a Brand Ambassador', href: '#' },
-];
-
-const socialLinks = [
-  { label: 'Instagram', href: '#', iconClass: 'icon-instagram' },
-  { label: 'Twitter', href: '#', iconClass: 'icon-twitter' },
-  { label: 'Facebook', href: '#', iconClass: 'icon-facebook' },
-  { label: 'Pinterest', href: '#', iconClass: 'icon-pinterest' },
-];
+import { FOOTER_CUSTOMER_CARE_LINKS, FOOTER_COMPANY_LINKS, FOOTER_SOCIAL_LINKS } from '@/utils/constants';
 
 export default function Footer() {
   return (
@@ -40,7 +12,7 @@ export default function Footer() {
           <nav className={styles.section} aria-label="Customer Care">
             <h2 className={styles.heading}>CUSTOMER CARE</h2>
             <ul className={styles.list}>
-              {customerCareLinks.map((link) => (
+              {FOOTER_CUSTOMER_CARE_LINKS.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href}>{link.label}</Link>
                 </li>
@@ -51,7 +23,7 @@ export default function Footer() {
           <nav className={styles.section} aria-label="Company">
             <h2 className={styles.heading}>COMPANY</h2>
             <ul className={styles.list}>
-              {companyLinks.map((link) => (
+              {FOOTER_COMPANY_LINKS.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href}>{link.label}</Link>
                 </li>
@@ -72,7 +44,7 @@ export default function Footer() {
               </p>
             </address>
             <div className={styles.social} aria-label="Social Media Links">
-              {socialLinks.map((link) => (
+              {FOOTER_SOCIAL_LINKS.map((link) => (
                 <a key={link.label} href={link.href} aria-label={link.label}>
                   <i className={link.iconClass} />
                 </a>

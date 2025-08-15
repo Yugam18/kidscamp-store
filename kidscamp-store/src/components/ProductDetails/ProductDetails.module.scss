@@ -56,41 +56,7 @@
   font-style: italic;
 }
 
-.sizeSelector {
-  margin-bottom: 20px;
-
-  label {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-
-  .sizeOptions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-
-    .sizeButton {
-      background: #9d2c7d;
-      border: 1px solid #ccc;
-      padding: 10px;
-      cursor: pointer;
-      width: 70px;
-      text-align: center;
-      border-radius: 5px;
-
-      &:hover {
-        background: #e0e0e0;
-      }
-
-      &.selected {
-        background: #2c449d;
-        color: white;
-      }
-    }
-  }
-}
-
-.colorSelector {
+.selector {
   margin-bottom: 20px;
 
   label {
@@ -102,23 +68,32 @@
   }
 }
 
+.sizeSelector {
+  @extend .selector;
+}
+
+.colorSelector {
+  @extend .selector;
+}
+
+.sizeOptions,
 .colorOptions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.colorButton {
-  background: #dbcece;
-  border: 2px solid #ddd;
-  padding: 10px 15px;
+.buttonBase {
   cursor: pointer;
   text-align: center;
-  border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 500;
+  border-radius: 8px;
   transition: all 0.2s ease;
-  min-width: 100px;
+  border: 2px solid #ddd;
+  padding: 10px 15px;
+  background: #dbcece;
+  min-width: 85px;
 
   &:hover {
     background: #f0f0f0;
@@ -130,55 +105,22 @@
     color: white;
     border-color: #9d2c7d;
   }
+
+  &:disabled {
+    background: #f5f5f5;
+    color: #ccc;
+    border-color: #eee;
+    cursor: not-allowed;
+  }
 }
 
-.sizeSelector {
-  margin-bottom: 20px;
+.sizeButton {
+  @extend .buttonBase;
+}
 
-  label {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    display: block;
-    color: #333;
-  }
-
-  .sizeOptions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-
-    .sizeButton {
-      background: #dbcece;
-      border: 2px solid #ddd;
-      padding: 10px 15px;
-      cursor: pointer;
-      text-align: center;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      min-width: 85px;
-
-      &:hover {
-        background: #f0f0f0;
-        border-color: #bbb;
-      }
-
-      &.selected {
-        background: #9d2c7d;
-        color: white;
-        border-color: #9d2c7d;
-      }
-
-      &:disabled {
-        background: #f5f5f5;
-        color: #ccc;
-        border-color: #eee;
-        cursor: not-allowed;
-      }
-    }
-  }
+.colorButton {
+  @extend .buttonBase;
+  min-width: 100px;
 }
 
 .productInfo {
