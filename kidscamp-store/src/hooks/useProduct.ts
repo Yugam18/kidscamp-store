@@ -14,13 +14,13 @@ const fetcher = async (url: string) => {
     ...productData,
     prices: Object.fromEntries(
       Object.entries(productData.prices).filter(
-        ([_, colorPrices]) => colorPrices !== undefined,
+        ([, colorPrices]) => colorPrices !== undefined,
       ),
     ) as Record<string, Record<string, number>>,
     discounted_prices: productData.discounted_prices
       ? (Object.fromEntries(
           Object.entries(productData.discounted_prices).filter(
-            ([_, colorPrices]) => colorPrices !== undefined,
+            ([, colorPrices]) => colorPrices !== undefined,
           ),
         ) as Record<string, Record<string, number>>)
       : undefined,

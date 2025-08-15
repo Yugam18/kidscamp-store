@@ -1,8 +1,6 @@
 import { Product, ProductPriceInfo } from '@/types/product';
 
-/**
- * Calculate the lowest price for a product considering all variants and discounts
- */
+
 export function getProductPriceInfo(product: Product): ProductPriceInfo {
   let lowestPrice = Infinity;
   let originalPrice: number | undefined;
@@ -75,8 +73,6 @@ export function getProductImageUrl(
   product: Product,
   index: number = 0,
 ): string {
-  // For now, return a placeholder image
-  // In the future, this could generate images based on the midjourney_prompt
   const placeholderImages = [
     'https://images.unsplash.com/photo-1503944168849-6c1ead3ad683?w=300&h=300&fit=crop',
     'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=300&h=300&fit=crop',
@@ -93,7 +89,6 @@ export function getProductImageUrl(
  */
 export function getProductImages(
   product: Product,
-  count: number = 4,
 ): string[] {
   return product.imgUrl || [];
 }
@@ -144,4 +139,33 @@ export function isVariantAvailable(
   size: string,
 ): boolean {
   return product.prices[color]?.[size] !== undefined;
+}
+
+/**
+ * Sanitizes a product ID for use in URLs
+ * Converts spaces and special characters to URL-safe format
+ */
+export function sanitizeProductIdForUrl(id: string): string {
+  return encodeURIComponent(id);
+}
+
+/**
+ * Desanitizes a product ID from URL format
+ * Converts URL-encoded characters back to their original form
+ */
+export function desanitizeProductIdFromUrl(encodedId: string): string {
+  return decodeURIComponent(encodedId);
+}
+
+/**
+ * Creates a URL-safe product ID from a product name
+ * This is useful for creating SEO-friendly URLs
+ */
+export function createUrlSafeId(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .trim();
 }

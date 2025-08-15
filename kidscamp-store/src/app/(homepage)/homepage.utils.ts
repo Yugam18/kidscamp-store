@@ -95,7 +95,7 @@ export async function fetchHomePageCmsData() {
       include: 2,
     });
 
-    const homepage = response.items[0]?.fields as any;
+    const homepage = response.items[0]?.fields as Record<string, unknown>;
     return { heroData: homepage };
   } catch (error) {
     console.error('Error fetching homepage data:', error);
@@ -103,24 +103,28 @@ export async function fetchHomePageCmsData() {
   }
 }
 
-export function processHeroImage(heroImage: any) {
+export function processHeroImage(heroImage: unknown) {
   if (!Array.isArray(heroImage) || heroImage.length === 0) return undefined;
 
-  const firstImage = heroImage[0];
-  if (!firstImage?.fields?.file?.url) return undefined;
+  const firstImage = heroImage[0] as Record<string, unknown>;
+  const fields = firstImage?.fields as Record<string, unknown>;
+  const file = fields?.file as Record<string, unknown>;
+  
+  if (!file?.url) return undefined;
 
-  const imageUrl = firstImage.fields.file.url.startsWith('//')
-    ? `https:${firstImage.fields.file.url}`
-    : firstImage.fields.file.url;
+  const imageUrl = file.url as string;
+  const processedUrl = imageUrl.startsWith('//')
+    ? `https:${imageUrl}`
+    : imageUrl;
 
   return [
     {
-      url: imageUrl,
+      url: processedUrl,
       width: 1200,
       height: 630,
       alt:
-        typeof firstImage.fields.title === 'string'
-          ? firstImage.fields.title
+        typeof fields?.title === 'string'
+          ? fields.title as string
           : 'KidsCamp Store',
     },
   ];

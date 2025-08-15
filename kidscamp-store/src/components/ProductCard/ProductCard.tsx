@@ -6,7 +6,6 @@ import styles from './ProductCard.module.scss';
 import { Product } from '@/types/product';
 import {
   getProductPriceInfo,
-  getProductImageUrl,
   formatCategoryName,
   isNewProduct,
 } from '@/utils/productUtils';
@@ -19,7 +18,6 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, rating = 0 }) => {
   const priceInfo = getProductPriceInfo(product);
-  const imageUrl = getProductImageUrl(product);
   const categoryName = formatCategoryName(product.category_id);
   const isNew = isNewProduct(product);
 

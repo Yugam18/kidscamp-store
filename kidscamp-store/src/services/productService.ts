@@ -17,13 +17,13 @@ export async function getProductById(id: string): Promise<Product | null> {
       ...product,
       prices: Object.fromEntries(
         Object.entries(product.prices).filter(
-          ([_, colorPrices]) => colorPrices !== undefined,
+          ([, colorPrices]) => colorPrices !== undefined,
         ),
       ) as Record<string, Record<string, number>>,
       discounted_prices: product.discounted_prices
         ? (Object.fromEntries(
             Object.entries(product.discounted_prices).filter(
-              ([_, colorPrices]) => colorPrices !== undefined,
+              ([, colorPrices]) => colorPrices !== undefined,
             ),
           ) as Record<string, Record<string, number>>)
         : undefined,

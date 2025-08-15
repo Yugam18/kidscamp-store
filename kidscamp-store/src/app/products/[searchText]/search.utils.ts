@@ -31,7 +31,7 @@ export function filterProductsByQuery(
   });
 }
 
-export function getSearchResultText(count: number, query: string): string {
+export function getSearchResultText(count: number, _query: string): string {
   if (count === 0) {
     return 'No products match your search.';
   }

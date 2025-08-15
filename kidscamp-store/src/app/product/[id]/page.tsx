@@ -94,7 +94,7 @@ export default async function ProductDetailPage({
     );
   }
 
-  const productImages = getProductImages(product, 4);
+  const productImages = getProductImages(product);
 
   return (
     <>

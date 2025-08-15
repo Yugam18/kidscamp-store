@@ -16,7 +16,7 @@ import { Metadata, ResolvingMetadata } from 'next';
 export const revalidate = 60;
 
 export async function generateMetadata(
-  { params }: { params: Promise<{}> },
+  _: { params: Promise<Record<string, unknown>> },
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { heroData } = await fetchHomePageCmsData();
@@ -25,16 +25,17 @@ export async function generateMetadata(
   let baseMetadata: Metadata = {};
 
   if (heroData) {
-    const ogImage = processHeroImage(heroData.heroImage);
+    const typedHeroData = heroData as Record<string, unknown>;
+    const ogImage = processHeroImage(typedHeroData.heroImage);
 
     baseMetadata = {
       ...baseMetadata,
-      title: heroData.metaTitle || 'KidsCamp Store - Premium Kids Products',
+      title: (typedHeroData.metaTitle as string) || 'KidsCamp Store - Premium Kids Products',
       description:
-        heroData.metaDescription ||
+        (typedHeroData.metaDescription as string) ||
         'Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.',
       keywords:
-        heroData.metaKeywords ||
+        (typedHeroData.metaKeywords as string) ||
         'kids store, children products, toys, kids clothing, baby products',
       authors: [{ name: 'KidsCamp Store' }],
       creator: 'KidsCamp Store',
@@ -45,9 +46,9 @@ export async function generateMetadata(
       },
       openGraph: {
         ...parentMetadata.openGraph,
-        title: heroData.metaTitle || 'KidsCamp Store - Premium Kids Products',
+        title: (typedHeroData.metaTitle as string) || 'KidsCamp Store - Premium Kids Products',
         description:
-          heroData.metaDescription ||
+          (typedHeroData.metaDescription as string) ||
           'Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.',
         type: 'website',
         locale: 'en_US',
@@ -57,9 +58,9 @@ export async function generateMetadata(
       },
       twitter: {
         card: 'summary_large_image',
-        title: heroData.metaTitle || 'KidsCamp Store - Premium Kids Products',
+        title: (typedHeroData.metaTitle as string) || 'KidsCamp Store - Premium Kids Products',
         description:
-          heroData.metaDescription ||
+          (typedHeroData.metaDescription as string) ||
           'Discover amazing products for kids at KidsCamp Store. From toys to clothing, we have everything your little ones need.',
         images: ogImage ? [ogImage[0].url] : undefined,
         creator: '@kidscampstore',

@@ -12,7 +12,6 @@ const CartIcon = ({
   className,
   width,
   height,
-  color,
   ...rest
 }: ImageColorProps) => (
   <svg
@@ -253,14 +252,17 @@ const SvgIcon = ({
     return null;
   }
 
-  const iconProps: any = {
+  const iconProps = {
     width,
     height,
     color,
-    'data-testid': testId,
     className,
     ...rest,
   };
+
+  if (testId) {
+    (iconProps as Record<string, unknown>)['data-testid'] = testId;
+  }
 
   return <Icon {...iconProps} />;
 };
