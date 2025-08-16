@@ -10,7 +10,7 @@ import { useProducts } from '@/hooks/useProducts';
 import {
   filterProductsByQuery,
   getSearchResultText,
-} from '@/app/products/[searchText]/search.utils';
+} from '@/app/(pages)/products/[searchText]/search.utils';
 
 export default function ProductSearchResultsPage({
   params,

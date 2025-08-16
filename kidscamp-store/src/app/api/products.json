@@ -22,7 +22,7 @@
       "tag": "popular",
       "made_in": "Italy",
       "materials_used": "Satin, Cotton lining, Ribbon",
-      "imgUrl": []
+      "imgUrl": ["https://images.ctfassets.net/qm3xz8whzgyj/6eMYkbC5jddoIvYfOJ3Yod/4b49ad4cec0a80068a0d29637078d5c5/floral-party-dress.png"]
     },
     {
       "id": "denim-overalls",
@@ -127,7 +127,7 @@
       "tag": "sleepwear",
       "made_in": "India",
       "materials_used": "Organic Cotton",
-      "imgUrl": []
+      "imgUrl": ["https://images.ctfassets.net/qm3xz8whzgyj/3y8DLedzXXAho1hUr2dCRz/40e0ca74dce29bf52cf899252b535390/cotton-nightdress.png"]
     },
     {
       "id": "puffer-winter-jacket",
@@ -156,7 +156,7 @@
       "tag": "warm",
       "made_in": "Canada",
       "materials_used": "Polyester shell, Down filling",
-      "imgUrl": []
+      "imgUrl": ["https://images.ctfassets.net/qm3xz8whzgyj/1WpxyRgQFINVuEk3vYi6GE/48ad7a5b75ee1b085c3a813f2481ef50/puffer-winter-jacket.png"]
     },
     {
       "id": "knit-cardigan",
@@ -206,7 +206,7 @@
       "tag": "sporty",
       "made_in": "Vietnam",
       "materials_used": "Polyester, Cotton blend",
-      "imgUrl": []
+      "imgUrl": ["https://images.ctfassets.net/qm3xz8whzgyj/5w1Hi7b4qG9OhPPteJc7D7/c7b13eec54bf50f2a821798f678e63d4/active-play-set.png"]
     },
     {
       "id": "striped-beanie-hat",
@@ -228,7 +228,7 @@
       "tag": "accessory",
       "made_in": "Bangladesh",
       "materials_used": "Wool blend",
-      "imgUrl": []
+      "imgUrl": ["https://images.ctfassets.net/qm3xz8whzgyj/1BHubvN95YgumgdWAr12p3/243ba978dd5c7b623adf7c3fc931da71/striped-beanie-hat.png"]
     },
     {
       "id": "embroidered-sweatshirt",
@@ -327,7 +327,7 @@
       "tag": "formal",
       "made_in": "France",
       "materials_used": "100% Silk",
-      "imgUrl": []
+      "imgUrl": ["https://images.ctfassets.net/qm3xz8whzgyj/PHnXMIUk9D7Jk3vNXvX6Y/05f9e0c4c7750637ec101126769f1d63/silk-bow-tie-1.png","https://images.ctfassets.net/qm3xz8whzgyj/23zqFcG7LZtiRPt6OLCJB3/90b47fa31ca4641da5787cd97ac666f5/silk-bow-tie-2.png"]
     },
     {
       "id": "velvet-charm-dress",
